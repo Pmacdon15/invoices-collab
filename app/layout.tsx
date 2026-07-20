@@ -32,11 +32,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ClerkProvider>
-          <QueryProvider>  
+          <QueryProvider>
             {children}
             <Toaster />
           </QueryProvider>
-         </ClerkProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
