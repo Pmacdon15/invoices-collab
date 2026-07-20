@@ -1,11 +1,6 @@
-import { Client } from "../../db/schema";
+import type { Client } from "../../db/schema";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ClientForm } from "./ClientForm";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
 
 interface EditClientDialogProps {
   client: Client | null;
@@ -13,7 +8,11 @@ interface EditClientDialogProps {
   onSubmit: (data: Client) => void;
 }
 
-export function EditClientDialog({ client, onClose, onSubmit }: EditClientDialogProps) {
+export function EditClientDialog({
+  client,
+  onClose,
+  onSubmit,
+}: EditClientDialogProps) {
   return (
     <Dialog open={!!client} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[425px]">

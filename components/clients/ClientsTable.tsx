@@ -1,4 +1,4 @@
-import { Client } from "../../db/schema";
+import type { Client } from "../../db/schema";
 import { Button } from "../ui/button";
 
 interface ClientsTableProps {
@@ -29,10 +29,18 @@ export function ClientsTable({ clients, onEditClient }: ClientsTableProps) {
           ) : (
             clients.map((client) => (
               <tr key={client.id} className="hover:bg-zinc-50/50">
-                <td className="px-6 py-4 font-medium text-zinc-900">{client.name}</td>
-                <td className="px-6 py-4 text-zinc-500">{client.email || "-"}</td>
-                <td className="px-6 py-4 text-zinc-500">{client.phone || "-"}</td>
-                <td className="px-6 py-4 text-zinc-500 truncate max-w-[200px]">{client.address || "-"}</td>
+                <td className="px-6 py-4 font-medium text-zinc-900">
+                  {client.name}
+                </td>
+                <td className="px-6 py-4 text-zinc-500">
+                  {client.email || "-"}
+                </td>
+                <td className="px-6 py-4 text-zinc-500">
+                  {client.phone || "-"}
+                </td>
+                <td className="px-6 py-4 text-zinc-500 truncate max-w-[200px]">
+                  {client.address || "-"}
+                </td>
                 <td className="px-6 py-4 text-right">
                   <Button
                     variant="ghost"

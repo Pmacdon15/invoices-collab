@@ -1,42 +1,42 @@
-'use server'
+"use server";
 
-import { revalidatePath } from 'next/cache'
-import type { Client } from '../db/schema'
-import { addClient, editClient } from './clients'
+import { revalidatePath } from "next/cache";
+import type { Client } from "../db/schema";
+import { addClient, editClient } from "./clients";
 
 export type ActionResponse<T> =
-	| { data: T; reason: null }
-	| { data: null; reason: string }
+  | { data: T; reason: null }
+  | { data: null; reason: string };
 
 export async function addClientAction(
-	client: Client,
+  client: Client,
 ): Promise<ActionResponse<Client>> {
-	const dalResult = await addClient(client)
+  const dalResult = await addClient(client);
 
-	return dalResult.match(
-		(data) => {
-			revalidatePath('/clients')
-			return { data, reason: null }
-		},
-		(reason) => {
-			return { data: null, reason }
-		},
-	)
+  return dalResult.match(
+    (data) => {
+      revalidatePath("/clients");
+      return { data, reason: null };
+    },
+    (reason) => {
+      return { data: null, reason };
+    },
+  );
 }
 
 export async function editClientAction(
-	id: string,
-	updates: Partial<Client>,
+  id: string,
+  updates: Partial<Client>,
 ): Promise<ActionResponse<Client>> {
-	const dalResult = await editClient(id, updates)
+  const dalResult = await editClient(id, updates);
 
-	return dalResult.match(
-		(data) => {
-			revalidatePath('/clients')
-			return { data, reason: null }
-		},
-		(reason) => {
-			return { data: null, reason }
-		},
-	)
+  return dalResult.match(
+    (data) => {
+      revalidatePath("/clients");
+      return { data, reason: null };
+    },
+    (reason) => {
+      return { data: null, reason };
+    },
+  );
 }
