@@ -1,8 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { updateTag } from "next/cache";
+import { addClient, editClient } from "../dal/clients";
 import type { Client } from "../db/schema";
-import { addClient, editClient } from "./clients";
 
 export type ActionResponse<T> =
   | { data: T; reason: null }
@@ -15,7 +15,9 @@ export async function addClientAction(
 
   return dalResult.match(
     (data) => {
-      revalidatePath("/clients");
+      updateTag(`clients`);
+      //For when we add auth
+      // updateTag(`clients-${data.orgId}`)
       return { data, reason: null };
     },
     (reason) => {
@@ -32,7 +34,9 @@ export async function editClientAction(
 
   return dalResult.match(
     (data) => {
-      revalidatePath("/clients");
+      updateTag(`clients`);
+      //For when we add auth
+      // updateTag(`clients-${data.orgId}`)
       return { data, reason: null };
     },
     (reason) => {

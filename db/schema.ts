@@ -19,13 +19,13 @@ export type Client = z.infer<typeof ClientSchema>;
 export type ClientFormValues = z.infer<typeof ClientSchema>;
 
 // // Raw SQL query to create the schema in Neon
-// export const createClientsTableSql = `
-// CREATE TABLE IF NOT EXISTS clients (
-//   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-//   name VARCHAR(255) NOT NULL,
-//   email VARCHAR(255),
-//   phone VARCHAR(50),
-//   address TEXT,
-//   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-// );
-// `;
+export const createClientsTableSql = `
+CREATE TABLE IF NOT EXISTS clients (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255),
+  phone VARCHAR(50),
+  address TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+`;

@@ -7,5 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 
 export function parseParams(p: string | string[] | unknown): string {
-  return Array.isArray(p) ? (p[0] ?? p) : "";
+  if (Array.isArray(p)) return p[0] ?? "";
+  if (typeof p === "string") return p;
+  return "";
 }

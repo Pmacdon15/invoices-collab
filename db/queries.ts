@@ -1,62 +1,74 @@
-import type { Client } from './schema'
+import { neon } from "@neondatabase/serverless";
+import { cacheTag } from "next/cache";
+import type { Client } from "./schema";
 
-const FAKE_CLIENTS: Client[] = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '123-456-7890',
-    address: '123 Main St',
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    phone: '098-765-4321',
-    address: '456 Oak Ave',
-  },
-]
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
+const sql = neon(String(process.env.DATABASE_URL));
 
 export async function dbGetClients(
   page: number = 1,
 ): Promise<{ clients: Client[]; totalPages: number }> {
-  await delay(300)
+  "use cache";
+  cacheTag(`clients-${page}`, `clients`);
+  //For when we add auth
+  // cacheTag(`clients-${page}-${orgId}`,`clients-${orgId}`);
+  const limit = 10;
+  const pageNumber = Number(page) || 1;
+  const offset = (pageNumber - 1) * limit;
 
-  // SQL to match pagination in one statement:
-  // SELECT *, COUNT(*) OVER() AS total_count FROM clients ORDER BY created_at DESC LIMIT 10 OFFSET ${(page - 1) * 10};
+  const rows = await sql`
+    SELECT id, name, email, phone, address, created_at as "createdAt",
+           COUNT(*) OVER() AS total_count
+    FROM clients
+    ORDER BY created_at DESC
+    LIMIT ${limit} OFFSET ${offset}
+  `;
 
-  const limit = 10
-  const offset = (page - 1) * limit
-  const totalCount = FAKE_CLIENTS.length
-  const totalPages = Math.ceil(totalCount / limit)
-  const clients = FAKE_CLIENTS.slice(offset, offset + limit)
+  if (rows.length === 0) {
+    return { clients: [], totalPages: 0 };
+  }
 
-  return { clients, totalPages }
+  const totalCount = Number(rows[0].total_count);
+  const totalPages = Math.ceil(totalCount / limit);
+
+  const clients = rows.map((row) => ({
+    id: row.id,
+    name: row.name,
+    email: row.email,
+    phone: row.phone,
+    address: row.address,
+    createdAt: row.createdAt,
+  }));
+
+  return { clients, totalPages };
 }
 
 export async function dbAddClient(client: Client): Promise<Client> {
-  await delay(300)
-  const newClient = {
-    ...client,
-    id: crypto.randomUUID(),
-    createdAt: new Date(),
-  }
-  FAKE_CLIENTS.push(newClient)
-  return newClient
+  const rows = await sql`
+    INSERT INTO clients (name, email, phone, address)
+    VALUES (${client.name}, ${client.email}, ${client.phone}, ${client.address})
+    RETURNING id, name, email, phone, address, created_at as "createdAt"
+  `;
+  return rows[0] as Client;
 }
 
 export async function dbEditClient(
   id: string,
   updates: Partial<Client>,
 ): Promise<Client> {
-  await delay(300)
-  const index = FAKE_CLIENTS.findIndex((c) => c.id === id)
-  if (index === -1) {
-    throw new Error('Client not found')
+  // Using COALESCE to only update fields that are provided
+  const rows = await sql`
+    UPDATE clients
+    SET name = COALESCE(${updates.name ?? null}, name),
+        email = COALESCE(${updates.email ?? null}, email),
+        phone = COALESCE(${updates.phone ?? null}, phone),
+        address = COALESCE(${updates.address ?? null}, address)
+    WHERE id = ${id}
+    RETURNING id, name, email, phone, address, created_at as "createdAt"
+  `;
+
+  if (rows.length === 0) {
+    throw new Error("Client not found");
   }
 
-  const updatedClient = { ...FAKE_CLIENTS[index], ...updates }
-  FAKE_CLIENTS[index] = updatedClient
-  return updatedClient
+  return rows[0] as Client;
 }
