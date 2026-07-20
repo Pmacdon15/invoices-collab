@@ -1,63 +1,72 @@
-'use client'
+"use client";
 
-import { startTransition, use, useOptimistic, useState } from 'react'
-import type { DataFetchResponse } from '../../dal/clients'
-import type { Client } from '../../db/schema'
-import { useClientMutations } from '../../mutations/useClientMutations'
-import { Button } from '../ui/button'
-import { AddClientDialog } from './AddClientDialog'
-import { ClientsTable } from './ClientsTable'
-import { EditClientDialog } from './EditClientDialog'
+import { startTransition, use, useOptimistic, useState } from "react";
+import type { DataFetchResponse } from "../../dal/clients";
+import type { Client } from "../../db/schema";
+import { useClientMutations } from "../../mutations/useClientMutations";
+import { Pagination } from "../Pagination";
+import { Button } from "../ui/button";
+import { AddClientDialog } from "./AddClientDialog";
+import { ClientsTable } from "./ClientsTable";
+import { EditClientDialog } from "./EditClientDialog";
 
 export function ClientsPageContent({
   clientsPromise,
 }: {
-  clientsPromise: Promise<DataFetchResponse<Client[]>>
+  clientsPromise: Promise<
+    DataFetchResponse<{
+      clients: Client[];
+      totalPages: number;
+    }>
+  >;
 }) {
-  const { data, reason } = use(clientsPromise)
-  const initialClients = data || []
+  const { data, reason } = use(clientsPromise);
+  const initialClients = data?.clients || [];
+  const totalPages = data?.totalPages || 1;
 
   const [optimisticClients, setOptimisticClients] = useOptimistic(
     initialClients,
-    (state, action: { type: 'add' | 'edit'; client: Client }) => {
-      if (action.type === 'add') {
-        return [...state, action.client]
+    (state, action: { type: "add" | "edit"; client: Client }) => {
+      if (action.type === "add") {
+        return [...state, action.client];
       }
-      if (action.type === 'edit') {
-        return state.map((c) => (c.id === action.client.id ? action.client : c))
+      if (action.type === "edit") {
+        return state.map((c) =>
+          c.id === action.client.id ? action.client : c,
+        );
       }
-      return state
+      return state;
     },
-  )
+  );
 
-  const [isAddOpen, setIsAddOpen] = useState(false)
-  const [editingClient, setEditingClient] = useState<Client | null>(null)
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
 
   const { addMutation, editMutation } = useClientMutations({
     onAddSuccess: () => setIsAddOpen(false),
     onEditSuccess: () => setEditingClient(null),
-  })
+  });
 
   const handleAdd = (newData: Client) => {
     startTransition(() => {
       setOptimisticClients({
-        type: 'add',
+        type: "add",
         client: { ...newData, id: crypto.randomUUID() },
-      })
-    })
-    addMutation.mutate(newData)
-  }
+      });
+    });
+    addMutation.mutate(newData);
+  };
 
   const handleEdit = (newData: Client) => {
-    if (!editingClient?.id) return
+    if (!editingClient?.id) return;
     startTransition(() => {
       setOptimisticClients({
-        type: 'edit',
+        type: "edit",
         client: { ...newData, id: editingClient.id },
-      })
-    })
-    editMutation.mutate({ id: editingClient.id, updates: newData })
-  }
+      });
+    });
+    editMutation.mutate({ id: editingClient.id, updates: newData });
+  };
 
   if (reason) {
     return (
@@ -66,7 +75,7 @@ export function ClientsPageContent({
           Error: {reason}
         </p>
       </div>
-    )
+    );
   }
 
   return (
@@ -82,10 +91,13 @@ export function ClientsPageContent({
           </p>
         </div>
       ) : (
-        <ClientsTable
-          clients={optimisticClients}
-          onEditClient={setEditingClient}
-        />
+        <>
+          <ClientsTable
+            clients={optimisticClients}
+            onEditClient={setEditingClient}
+          />
+          <Pagination totalPages={totalPages} />
+        </>
       )}
 
       <AddClientDialog
@@ -100,5 +112,5 @@ export function ClientsPageContent({
         onSubmit={handleEdit}
       />
     </>
-  )
+  );
 }
