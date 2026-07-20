@@ -22,7 +22,10 @@ export function AddClientDialog({
         <div className="mt-4">
           <ClientForm
             onCancel={() => onOpenChange(false)}
-            onSubmit={async (data) => onSubmit(data)}
+            onSubmit={async (data) => {
+              await onSubmit(data);
+              onOpenChange(false);
+            }}
           />
         </div>
       </DialogContent>
