@@ -4,11 +4,10 @@ import SecondaryLink from "@/components/shared/secondary-link";
 
 export default function Hero() {
   return (
-    <div className="flex min-h-[80vh] items-center justify-center gap-40">
+    <div className="flex min-h-[80vh] items-center justify-center gap-40 p-5 md:p-10">
       <div className="flex max-w-115 flex-col gap-10">
-        <h1 className="font-normal font-serif text-7xl text-foreground">
+        <h1 className="font-normal font-serif text-7xl text-foreground leading-25">
           All <CurveUnderLine text="Invoices" />
-          <br />
           In One Place.
         </h1>
         <p>
