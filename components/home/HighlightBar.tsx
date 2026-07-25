@@ -7,13 +7,13 @@ import {
 } from "@/components/ui/carousel";
 
 const features = [
-  "One-click invoices",
-  "Auto-reminders",
-  "Instant PDFs",
-  "Track everything",
-  "Zero monthly fees",
-  "Unlimited clients",
-  "Clean interface",
+  "Add Your Customers",
+  "Catalog Your Products",
+  "Generate Invoices",
+  "Track Payments",
+  "Send Reminders",
+  "Stay organized",
+  "Get paid on time",
 ];
 
 export default function HighlightBar() {
