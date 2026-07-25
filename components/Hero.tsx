@@ -1,4 +1,5 @@
 import { CurveUnderLine } from "@/components/shared/curve-underline";
+import PrimaryLink from "@/components/shared/primary-link";
 
 export default function Hero() {
   return (
@@ -13,7 +14,11 @@ export default function Hero() {
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi quae
           dolorum et, quaerat ex similique fugiat minima, eius sint accusantium!
         </p>
+        <div>
+          <PrimaryLink link="signin" text="Open an account" />
+        </div>
       </div>
+
       <div>
         <img
           src={"jar.webp"}
