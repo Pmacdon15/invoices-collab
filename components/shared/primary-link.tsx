@@ -11,7 +11,7 @@ export default function PrimaryLink({
   return (
     <Link
       href={link}
-      className="group relative flex max-w-fit items-center gap-2 rounded-full border-2 border-primary bg-primary px-4 py-2 font-semibold text-background duration-200 hover:scale-108 hover:bg-background hover:text-primary"
+      className="group relative flex max-w-fit items-center gap-2 rounded-full border-2 border-primary bg-primary px-4 py-2 font-semibold text-background text-sm duration-200 hover:scale-108 hover:bg-background hover:text-primary md:text-base"
     >
       <Circle
         fill="background"

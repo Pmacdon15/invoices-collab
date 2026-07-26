@@ -4,10 +4,11 @@ import SecondaryLink from "@/components/shared/secondary-link";
 
 export default function Hero() {
   return (
-    <div className="flex min-h-[80vh] items-center justify-center gap-40 p-5 md:p-10">
+    <div className="flex min-h-[80vh] flex-col items-center justify-center gap-20 p-5 md:flex-row md:gap-40 md:p-10">
       <div className="flex max-w-115 flex-col gap-4">
-        <h1 className="font-normal font-serif text-7xl text-foreground leading-25">
+        <h1 className="font-normal font-serif text-5xl text-foreground leading-20 md:text-7xl md:leading-25">
           All <CurveUnderLine text="Invoices" />
+          <br />
           In One Place.
         </h1>
         <p>
@@ -22,7 +23,7 @@ export default function Hero() {
       <div>
         <img
           src={"jar.webp"}
-          className="pointer-events-none hidden animate-wiggle select-none md:block md:w-50"
+          className="pointer-events-none max-w-50 animate-wiggle select-none"
           alt="jar with coins"
         />
       </div>

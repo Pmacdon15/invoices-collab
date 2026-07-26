@@ -22,7 +22,7 @@ const steps = [
 export default function Features() {
   return (
     <div className="flex flex-col gap-10 p-5 md:p-10">
-      <h2 className="font-bold text-4xl text-foreground">
+      <h2 className="font-bold text-2xl text-foreground md:text-4xl">
         Three steps. Zero headaches.
         <br />
         Streamlined invoicing for everyone.
@@ -34,10 +34,12 @@ export default function Features() {
             key={index}
             className="group flex flex-col gap-4 rounded-2xl border-2 border-border bg-background p-8 transition-all duration-200 hover:scale-108 hover:shadow-lg"
           >
-            <div className="font-bold text-8xl text-muted-foreground transition-rotate duration-200 group-hover:rotate-4">
+            <div className="font-bold text-4xl text-muted-foreground transition-rotate duration-200 group-hover:rotate-4 md:text-8xl">
               {step.number}
             </div>
-            <h3 className="font-bold text-foreground text-xl">{step.title}</h3>
+            <h3 className="font-bold text-base text-foreground md:text-xl">
+              {step.title}
+            </h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
               {step.description}
             </p>

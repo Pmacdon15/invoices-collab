@@ -8,7 +8,10 @@ export default function SecondaryLink({
   text: string;
 }) {
   return (
-    <Link href={link} className="font-semibold text-primary">
+    <Link
+      href={link}
+      className="font-semibold text-primary text-sm md:text-base"
+    >
       {text}
     </Link>
   );
