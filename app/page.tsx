@@ -1,4 +1,5 @@
 import Demo from "@/components/home/Demo";
+import GetStarted from "@/components/home/GetStarted";
 import Hero from "@/components/home/Hero";
 import HighlightBar from "@/components/home/HighlightBar";
 import Process from "@/components/home/Process";
@@ -16,6 +17,7 @@ export default function Home() {
       </div>
       <Process />
       <QuoteRec />
+      <GetStarted />
     </div>
   );
 }
