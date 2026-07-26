@@ -4,21 +4,18 @@ const steps = [
     title: "Add Your Customers",
     description:
       "Build your client database with detailed information and billing preferences.",
-    link: "/customers",
   },
   {
     number: "2",
     title: "Catalog Your Products",
     description:
       "Create a comprehensive product catalog with pricing, descriptions, and categories.",
-    link: "/products",
   },
   {
     number: "3",
     title: "Generate Invoices",
     description:
       "Combine customers and products to create professional invoices in seconds.",
-    link: "/invoices",
   },
 ];
 
