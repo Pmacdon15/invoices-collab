@@ -22,7 +22,7 @@ const steps = [
 export default function Features() {
   return (
     <div className="flex flex-col gap-10 p-5 md:p-10">
-      <h2 className="font-bold text-2xl text-foreground md:text-4xl">
+      <h2 className="text-2xl text-foreground md:text-4xl">
         Three steps. Zero headaches.
         <br />
         Streamlined invoicing for everyone.
