@@ -4,7 +4,7 @@ import PrimaryLink from "@/components/shared/primary-link";
 
 export default function GetStarted() {
   return (
-    <div className="flex items-center justify-center text-secondary">
+    <div className="before:content='' relative flex items-center justify-center text-secondary before:absolute before:bottom-30 before:-z-10 before:min-h-lvh before:min-w-screen before:bg-secondary">
       <div className="flex w-full max-w-5xl flex-col gap-10 rounded-2xl bg-muted-primary p-10 md:flex-row md:p-15">
         <div className="flex max-w-115 flex-col gap-4">
           <span className="font-semibold text-sm">TRY IT NOW</span>
