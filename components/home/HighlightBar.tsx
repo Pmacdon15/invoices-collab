@@ -35,8 +35,8 @@ export default function HighlightBar() {
           {[...features, ...features].map((feature, i) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: List is static, index is stable
             <CarouselItem key={i} className="basis-auto pl-4">
-              <div className="flex items-center gap-2 whitespace-nowrap font-bold">
-                • {feature}
+              <div className="flex items-center gap-4 whitespace-nowrap font-bold">
+                <span>•</span> {feature}
               </div>
             </CarouselItem>
           ))}
