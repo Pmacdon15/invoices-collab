@@ -12,8 +12,8 @@ export default function Hero() {
           In One Place.
         </h1>
         <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi quae
-          dolorum et, quaerat ex similique fugiat minima, eius sint accusantium!
+          Manage customers, catalog products, and generate professional invoices
+          in seconds. Everything you need.
         </p>
         <div className="flex items-center gap-5">
           <PrimaryLink link="signin" text="Open an account" />
