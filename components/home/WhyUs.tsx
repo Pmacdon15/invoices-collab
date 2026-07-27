@@ -1,9 +1,6 @@
 export default function WhyUs() {
   return (
-    <div
-      id="about"
-      className="flex flex-col items-center gap-8 bg-secondary p-5 md:p-10"
-    >
+    <div className="flex flex-col items-center gap-8 bg-secondary p-5 md:p-10">
       <h5 className="max-w-fit rounded-full bg-primary px-4 py-2 font-bold text-secondary text-sm">
         Why VivaPro Exists
       </h5>

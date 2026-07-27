@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Demo() {
   return (
     <div
-      id="demo"
+      id="about"
       className="flex flex-wrap items-center justify-center gap-20 rounded-t-4xl bg-muted-primary p-5 md:gap-40 md:p-10"
     >
       <div className="-rotate-8 rounded-4xl bg-background p-5 font-bold">

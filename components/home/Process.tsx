@@ -21,7 +21,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <div id="process" className="flex flex-col gap-10 p-5 md:p-10">
+    <div id="works" className="flex flex-col gap-10 p-5 md:p-10">
       <h2 className="text-2xl text-foreground md:text-4xl">
         Three steps. Zero headaches.
         <br />
