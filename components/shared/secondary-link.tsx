@@ -10,7 +10,7 @@ export default function SecondaryLink({
   return (
     <Link
       href={link}
-      className="font-semibold text-primary text-sm md:text-base"
+      className="border-transparent border-b-2 font-semibold text-primary text-sm duration-200 hover:border-primary md:text-base"
     >
       {text}
     </Link>
