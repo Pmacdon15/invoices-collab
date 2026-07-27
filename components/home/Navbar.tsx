@@ -4,12 +4,12 @@ import SecondaryLink from "@/components/shared/secondary-link";
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-evenly border-border border-b-2 px-2 py-4 font-medium md:px-8">
+    <nav className="flex items-center justify-evenly px-2 py-4 font-medium md:basis-full md:px-8">
       <Link href="/" className="flex items-center gap-2">
         <Image src="/logo.png" alt="logo" width={24} height={24} />
         <span className="font-bold">VivaPro</span>
       </Link>
-      <ul className="flex gap-8 *:duration-200 *:hover:-translate-y-0.5">
+      <ul className="hidden gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
         <li>
           <Link href="#about">About</Link>
         </li>
@@ -20,7 +20,9 @@ export default function Navbar() {
           <Link href="/pricing">Pricing</Link>
         </li>
       </ul>
-      <SecondaryLink text="Sign in" link="/signin" />
+      <div className="hidden md:flex">
+        <SecondaryLink text="Sign in" link="/signin" />
+      </div>
     </nav>
   );
 }

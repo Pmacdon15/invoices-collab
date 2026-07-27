@@ -12,7 +12,7 @@ export default function Hero() {
           <br />
           In One Place.
         </h1>
-        <p>
+        <p className="text-sm md:text-base">
           Manage customers, catalog products, and generate professional invoices
           in seconds. Everything you need.
         </p>
