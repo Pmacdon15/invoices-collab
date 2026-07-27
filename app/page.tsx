@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Demo from "@/components/home/Demo";
 import GetStarted from "@/components/home/GetStarted";
 import Hero from "@/components/home/Hero";
@@ -21,6 +22,7 @@ export default function Home() {
         <Process />
         <QuoteRec />
         <GetStarted />
+        <Footer />
       </div>
     </>
   );
