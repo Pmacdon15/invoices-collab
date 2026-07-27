@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Demo() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-20 rounded-t-4xl bg-muted-primary p-5 md:gap-40 md:p-10">
@@ -6,9 +8,11 @@ export default function Demo() {
         <br /> Blah blah blah
         <br /> Yada Yada Yada Yada Yada
       </div>
-      <img
-        src="demo_phone.webp"
+      <Image
+        src="/demo_phone.webp"
         alt="Demo Phone"
+        width={300}
+        height={500}
         className="pointer-events-none select-none"
       />
       <div className="flex flex-col justify-between gap-20 md:gap-40">
