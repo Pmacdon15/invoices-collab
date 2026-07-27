@@ -22,10 +22,11 @@ export default function GetStarted() {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <PrimaryLink link="signup" text="Get Started Now" size="lg" />
           <Link
-            className="flex gap-2 rounded-2xl bg-background px-8 py-4 font-bold text-muted-primary duration-200 hover:scale-108"
+            className="flex gap-2 rounded-2xl bg-background px-8 py-4 text-muted-primary transition-transform duration-100 hover:scale-108"
             href="/pricing"
           >
-            Pricing <Link2 />
+            <span className="font-bold">Pricing</span>
+            <Link2 />
           </Link>
         </div>
       </div>
