@@ -17,12 +17,13 @@ export default function PrimaryLink({
     >
       <Circle
         fill="background"
-        size={18}
-        className="absolute transition-all duration-300 ease-in-out group-hover:scale-0 group-hover:opacity-0"
+        size={12}
+        className="transition-all duration-300 ease-in-out group-hover:scale-0 group-hover:opacity-0"
       />
       <ArrowRight
         size={18}
-        className="scale-0 opacity-0 transition-all duration-300 ease-in-out group-hover:scale-100 group-hover:opacity-100"
+        strokeWidth={3}
+        className="absolute scale-0 opacity-0 transition-all duration-300 ease-in-out group-hover:scale-100 group-hover:opacity-100"
       />
       {text}
     </Link>
