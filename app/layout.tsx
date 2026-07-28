@@ -8,7 +8,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import "./globals.css";
-import Navbar from "@/components/home/Navbar";
+import Navbar from "@/components/shared/navbar";
 import { QueryProvider } from "../components/providers/QueryProvider";
 import { Toaster } from "../components/ui/sonner";
 
