@@ -6,7 +6,7 @@ export default function Footer() {
     <div className="border-t p-4 font-medium">
       <div className="flex flex-col justify-evenly md:flex-row">
         <Link href={"/"} className="flex items-center gap-2">
-          <Image src="/logo.png" alt="logo" width={96} height={96} />
+          <Image src="/logo.webp" alt="logo" width={96} height={96} />
           <span className="font-bold text-2xl md:text-4xl">
             VivaPro - Invoices
           </span>

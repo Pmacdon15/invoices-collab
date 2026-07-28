@@ -69,7 +69,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props}>
       <SidebarHeader>
         <Link href={"/"} className="flex items-center gap-2">
-          <Image src="/logo.png" alt="logo" width={48} height={48} />
+          <Image src="/logo.webp" alt="logo" width={48} height={48} />
           <span className="font-bold text-xl">VivaPro</span>
         </Link>
       </SidebarHeader>
