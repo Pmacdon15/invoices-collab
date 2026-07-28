@@ -18,6 +18,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const data = {
   navMain: [
@@ -67,6 +68,10 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const isMobile = useIsMobile();
+
+  if (!isMobile) return null;
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
