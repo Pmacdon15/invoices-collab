@@ -8,12 +8,12 @@ export default function PrimaryLink({
 }: {
   link: string;
   text: string;
-  size?: "base" | "lg";
+  size?: "small" | "base" | "lg";
 }) {
   return (
     <Link
       href={link}
-      className={`group relative flex max-w-fit items-center gap-2 rounded-2xl border-2 border-primary bg-primary ${size === "base" ? "px-4 py-2" : "px-8 py-4"} font-semibold text-background text-sm duration-200 hover:scale-108 hover:bg-background hover:text-primary md:text-base`}
+      className={`group relative flex max-w-fit items-center gap-2 rounded-2xl border-2 border-primary bg-primary ${size === "lg" ? "px-8 py-4" : "px-4 py-2"} font-semibold text-background text-sm ${size === "small" ? "md:text-sm" : "md:text-base"} duration-200 hover:scale-108 hover:bg-background hover:text-primary`}
     >
       <Circle
         fill="background"
