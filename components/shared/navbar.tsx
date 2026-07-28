@@ -16,7 +16,7 @@ export default function Navbar() {
         <Image src="/logo.png" alt="logo" width={32} height={32} />
         <span className="font-bold">VivaPro</span>
       </Link>
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Spinner size="sm" />}>
         <Show when={"signed-out"}>
           <ul className="hidden items-center gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
             <li>
