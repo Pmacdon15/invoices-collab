@@ -17,7 +17,7 @@ export default function Hero() {
           in seconds. Everything you need.
         </p>
         <div className="flex items-center gap-5">
-          <PrimaryLink link="signup" text="Open an account" />
+          <PrimaryLink link="sign-up" text="Open an account" />
           <SecondaryLink link="#" text="See how it works" />
         </div>
       </div>
