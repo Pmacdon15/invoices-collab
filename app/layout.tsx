@@ -38,13 +38,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body>
         <ClerkProvider>
           <QueryProvider>
             <SidebarProvider defaultOpen={false}>
               <AppSidebar className="md:hidden" />
               <SidebarInset>
-                <header className="flex items-center justify-between gap-2 border-b px-4">
+                <header className="flex items-center gap-2 border-b px-4">
                   <SidebarTrigger className="md:hidden" />
                   <Navbar />
                 </header>
