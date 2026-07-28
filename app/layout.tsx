@@ -2,11 +2,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+
 import "./globals.css";
 import Navbar from "@/components/shared/navbar";
 import { QueryProvider } from "../components/providers/QueryProvider";
@@ -41,16 +37,13 @@ export default function RootLayout({
       <body>
         <ClerkProvider>
           <QueryProvider>
-            <SidebarProvider defaultOpen={false}>
-              <AppSidebar className="md:hidden" />
-              <SidebarInset>
-                <header className="flex items-center gap-2 border-b px-4">
-                  <SidebarTrigger className="md:hidden" />
-                  <Navbar />
-                </header>
-                <main>{children}</main>
-              </SidebarInset>
-            </SidebarProvider>
+            <div className="flex min-h-screen flex-col bg-background">
+              <header className="flex h-16 items-center gap-2 border-b px-4 md:px-8">
+                <AppSidebar className="md:hidden" />
+                <Navbar />
+              </header>
+              <main className="flex-1">{children}</main>
+            </div>
             <Toaster />
           </QueryProvider>
         </ClerkProvider>

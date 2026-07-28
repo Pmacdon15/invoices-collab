@@ -2,18 +2,15 @@ import { Show } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import type * as React from "react";
+import { PanelLeftIcon } from "lucide-react";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-} from "@/components/ui/sidebar";
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 const data = {
   navMain: [
@@ -62,37 +59,50 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ className }: { className?: string }) {
   return (
-    <Sidebar {...props}>
-      <SidebarHeader>
-        <Link href={"/"} className="flex items-center gap-2">
-          <Image src="/logo.png" alt="logo" width={48} height={48} />
-          <span className="font-bold text-xl">VivaPro</span>
-        </Link>
-      </SidebarHeader>
-      <SidebarContent>
-        <Show when="signed-out">
-          {data.navMain.map((item) => (
-            <SidebarGroup key={item.title}>
-              <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {item.items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <Link href={item.url}>
-                        <SidebarMenuButton>{item.title}</SidebarMenuButton>
+    <div className={className}>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="icon" className="md:hidden">
+            <PanelLeftIcon />
+            <span className="sr-only">Toggle Sidebar</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-[18rem] bg-sidebar p-0 text-sidebar-foreground border-sidebar-border">
+          <SheetHeader className="p-4 border-b border-sidebar-border text-left">
+            <SheetTitle asChild>
+              <Link href={"/"} className="flex items-center gap-2 w-fit">
+                <Image src="/logo.png" alt="logo" width={48} height={48} />
+                <span className="font-bold text-xl">VivaPro</span>
+              </Link>
+            </SheetTitle>
+          </SheetHeader>
+          <div className="flex flex-col gap-4 p-2 overflow-auto">
+            <Show when="signed-out">
+              {data.navMain.map((item) => (
+                <div key={item.title} className="flex flex-col gap-1 p-2">
+                  <div className="flex h-8 items-center px-2 text-xs font-medium text-sidebar-foreground/70">
+                    {item.title}
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    {item.items.map((subItem) => (
+                      <Link
+                        key={subItem.title}
+                        href={subItem.url}
+                        className="flex h-8 w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                      >
+                        {subItem.title}
                       </Link>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          ))}
-        </Show>
-        {/* todo: add array for signed in users*/}
-      </SidebarContent>
-      <SidebarRail />
-    </Sidebar>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </Show>
+            {/* todo: add array for signed in users*/}
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 }
