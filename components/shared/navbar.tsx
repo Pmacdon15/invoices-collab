@@ -1,6 +1,7 @@
 "use client";
 
 import { Show, UserButton } from "@clerk/nextjs";
+import { GripHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import PrimaryLink from "@/components/shared/primary-link";
@@ -14,7 +15,7 @@ export default function Navbar() {
         <span className="font-bold">VivaPro</span>
       </Link>
       <Show when={"signed-out"}>
-        <ul className="hidden gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
+        <ul className="hidden items-center gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
           <li>
             <Link href="/#about">About</Link>
           </li>
@@ -24,11 +25,16 @@ export default function Navbar() {
           <li>
             <Link href="/pricing">Pricing</Link>
           </li>
+          <li>
+            <GripHorizontal />
+          </li>
+          <li>
+            <SecondaryLink text="Sign in" link="/sign-in" />
+          </li>
+          <li>
+            <PrimaryLink text="Get Started" link="/sign-up" size="small" />
+          </li>
         </ul>
-        <div className="hidden items-center gap-4 md:flex">
-          <SecondaryLink text="Sign in" link="/sign-in" />
-          <PrimaryLink text="Get Started" link="/sign-up" size="small" />
-        </div>
       </Show>
       <Show when={"signed-in"}>
         <span className="md:hidden">
