@@ -1,3 +1,5 @@
+import { Show } from "@clerk/nextjs";
+import Image from "next/image";
 import Link from "next/link";
 import type * as React from "react";
 import {
@@ -39,7 +41,7 @@ const data = {
       items: [
         {
           title: "Sign in",
-          url: "/sigin",
+          url: "/sign-in",
         },
       ],
     },
@@ -49,24 +51,32 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
-      <SidebarHeader></SidebarHeader>
+      <SidebarHeader>
+        <Link href={"/"} className="flex items-center gap-2">
+          <Image src="/logo.png" alt="logo" width={48} height={48} />
+          <span className="font-bold text-xl">VivaPro</span>
+        </Link>
+      </SidebarHeader>
       <SidebarContent>
-        {data.navMain.map((item) => (
-          <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <Link href={item.url}>
-                      <SidebarMenuButton>{item.title}</SidebarMenuButton>
-                    </Link>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+        <Show when="signed-out">
+          {data.navMain.map((item) => (
+            <SidebarGroup key={item.title}>
+              <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {item.items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <Link href={item.url}>
+                        <SidebarMenuButton>{item.title}</SidebarMenuButton>
+                      </Link>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))}
+        </Show>
+        {/* todo: add array for signed in users*/}
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
