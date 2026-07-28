@@ -3,8 +3,8 @@
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import Footer from "@/components/Footer";
 import Demo from "@/components/home/Demo";
+import Footer from "@/components/home/Footer";
 import GetStarted from "@/components/home/GetStarted";
 import Hero from "@/components/home/Hero";
 import HighlightBar from "@/components/home/HighlightBar";
