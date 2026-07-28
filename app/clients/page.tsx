@@ -5,8 +5,8 @@ import { getClients } from "../../dal/clients";
 
 export default function ClientsPage(props: PageProps<"/clients">) {
   return (
-    <div className="min-h-screen bg-white text-zinc-900">
-      <div className="mx-auto max-w-5xl p-8 bg-white text-zinc-900">
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto max-w-5xl p-8">
         <Suspense fallback={<div className="p-8">Loading clients...</div>}>
           <ClientsPageContent
             clientsPromise={props.searchParams.then((p) =>
