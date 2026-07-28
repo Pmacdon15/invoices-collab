@@ -20,7 +20,7 @@ export default function GetStarted() {
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <PrimaryLink link="signup" text="Get Started Now" size="lg" />
+          <PrimaryLink link="sign-up" text="Get Started Now" size="lg" />
           <Link
             className="flex gap-2 rounded-2xl bg-background px-8 py-4 text-muted-primary transition-transform duration-100 hover:scale-108"
             href="/pricing"
