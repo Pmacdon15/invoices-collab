@@ -42,7 +42,7 @@ export default function RootLayout({
         <ClerkProvider>
           <QueryProvider>
             <SidebarProvider defaultOpen={false}>
-              <AppSidebar className="md:hidden" />
+              <AppSidebar className="md:hidden"/>
               <SidebarInset>
                 <header className="flex items-center gap-2 border-b px-4">
                   <SidebarTrigger className="md:hidden" />

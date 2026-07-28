@@ -2,6 +2,7 @@ import { Show } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import type * as React from "react";
+import { Suspense } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -72,24 +73,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        <Show when="signed-out">
-          {data.navMain.map((item) => (
-            <SidebarGroup key={item.title}>
-              <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {item.items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <Link href={item.url}>
-                        <SidebarMenuButton>{item.title}</SidebarMenuButton>
-                      </Link>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          ))}
-        </Show>
+        <Suspense>
+          <Show when="signed-out">
+            {data.navMain.map((item) => (
+              <SidebarGroup key={item.title}>
+                <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {item.items.map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <Link href={item.url}>
+                          <SidebarMenuButton>{item.title}</SidebarMenuButton>
+                        </Link>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            ))}
+          </Show>
+        </Suspense>
         {/* todo: add array for signed in users*/}
       </SidebarContent>
       <SidebarRail />

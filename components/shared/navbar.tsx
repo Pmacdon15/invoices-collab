@@ -4,6 +4,7 @@ import { Show, UserButton } from "@clerk/nextjs";
 import { GripHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import PrimaryLink from "@/components/shared/primary-link";
 import SecondaryLink from "@/components/shared/secondary-link";
 
@@ -36,14 +37,16 @@ export default function Navbar() {
           </li>
         </ul>
       </Show>
-      <Show when={"signed-in"}>
-        <span className="md:hidden">
-          <UserButton showName={false} />
-        </span>
-        <span className="hidden md:block">
-          <UserButton showName={true} />
-        </span>
-      </Show>
+      <Suspense>
+        <Show when={"signed-in"}>
+          <span className="md:hidden">
+            <UserButton showName={false} />
+          </span>
+          <span className="hidden md:block">
+            <UserButton showName={true} />
+          </span>
+        </Show>
+      </Suspense>
     </nav>
   );
 }
