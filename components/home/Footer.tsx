@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <div className="border-t p-4 font-medium">
-      <div className="flex flex-col justify-between md:flex-row">
+      <div className="flex flex-col justify-evenly md:flex-row">
         <Link href={"/"} className="flex items-center gap-2">
           <Image src="/logo.png" alt="logo" width={96} height={96} />
           <span className="font-bold text-2xl md:text-4xl">
