@@ -36,6 +36,20 @@ const data = {
       ],
     },
     {
+      title: "Learn more",
+      url: "/",
+      items: [
+        {
+          title: "Terms and Conditions",
+          url: "/terms",
+        },
+        {
+          title: "Privacy Policy",
+          url: "/privacy",
+        },
+      ],
+    },
+    {
       title: "Already have an account?",
       url: "/",
       items: [
