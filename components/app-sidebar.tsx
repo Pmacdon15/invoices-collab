@@ -1,3 +1,5 @@
+"use client";
+
 import { Show } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,7 +76,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Spinner size="sm" />}>
           <Show when="signed-out">
             {data.navMain.map((item) => (
               <SidebarGroup key={item.title}>
