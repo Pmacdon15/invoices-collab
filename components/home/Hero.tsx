@@ -26,6 +26,7 @@ export default function Hero() {
           src={"/jar.webp"}
           width={300}
           height={500}
+          priority
           className="pointer-events-none h-75 w-auto animate-wiggle select-none"
           alt="jar with coins"
         />
