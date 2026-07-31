@@ -1,10 +1,15 @@
+import { auth } from "@clerk/nextjs/server";
 import { err, ok, type Result } from "neverthrow";
 import { dbAddProduct, dbEditProduct, dbGetProducts } from "../db/queries";
 import type { Product } from "../db/schema";
 import type { DataFetchResponse } from "./clients"; // reusing the type or defining it again
 
-export async function getProducts(page: number = 1): Promise<DataFetchResponse<{ products: Product[]; totalPages: number }>> {
-  return dbGetProducts(page)
+export async function getProducts(
+  page: number = 1,
+): Promise<DataFetchResponse<{ products: Product[]; totalPages: number }>> {
+  const { userId, orgId } = await auth.protect();
+  const tenantId = orgId ?? userId;
+  return dbGetProducts(page, tenantId)
     .then((data) => {
       if (data) return { data, reason: null };
       return { data: null, reason: "Failed to fetch products" };
@@ -18,7 +23,9 @@ export async function getProducts(page: number = 1): Promise<DataFetchResponse<{
 export async function addProduct(
   product: Product,
 ): Promise<Result<Product, string>> {
-  return dbAddProduct(product)
+  const { userId, orgId } = await auth.protect();
+  const tenantId = orgId ?? userId;
+  return dbAddProduct(product, tenantId)
     .then((data) => {
       return ok(data);
     })
@@ -32,7 +39,9 @@ export async function editProduct(
   id: string,
   updates: Partial<Product>,
 ): Promise<Result<Product, string>> {
-  return dbEditProduct(id, updates)
+  const { userId, orgId } = await auth.protect();
+  const tenantId = orgId ?? userId;
+  return dbEditProduct(id, updates, tenantId)
     .then((data) => {
       return ok(data);
     })

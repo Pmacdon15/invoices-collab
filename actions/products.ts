@@ -11,10 +11,8 @@ export async function addProductAction(
   const dalResult = await addProduct(product);
 
   return dalResult.match(
-    (data) => {
-      updateTag(`products`);
-      //For when we add auth
-      // updateTag(`products-${data.orgId}`)
+    (data) => {           
+      updateTag(`products-${data.orgId}`)
       return { data, reason: null };
     },
     (reason) => {
@@ -30,10 +28,8 @@ export async function editProductAction(
   const dalResult = await editProduct(id, updates);
 
   return dalResult.match(
-    (data) => {
-      updateTag(`products`);
-      //For when we add auth
-      // updateTag(`products-${data.orgId}`)
+    (data) => {          
+      updateTag(`products-${data.orgId}`)
       return { data, reason: null };
     },
     (reason) => {
