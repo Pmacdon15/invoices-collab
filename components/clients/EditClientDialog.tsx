@@ -24,7 +24,7 @@ export function EditClientDialog({
             <ClientForm
               initialData={client}
               onSubmit={async (data) => {
-                await onSubmit(data);                
+                await onSubmit(data);
               }}
               onCancel={onClose}
             />

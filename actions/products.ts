@@ -11,8 +11,8 @@ export async function addProductAction(
   const dalResult = await addProduct(product);
 
   return dalResult.match(
-    (data) => {           
-      updateTag(`products-${data.orgId}`)
+    (data) => {
+      updateTag(`products-${data.orgId}`);
       return { data, reason: null };
     },
     (reason) => {
@@ -26,10 +26,9 @@ export async function editProductAction(
   updates: Partial<Product>,
 ): Promise<ActionResponse<Product>> {
   const dalResult = await editProduct(id, updates);
-
   return dalResult.match(
-    (data) => {          
-      updateTag(`products-${data.orgId}`)
+    (data) => {
+      updateTag(`products-${data.orgId}`);
       return { data, reason: null };
     },
     (reason) => {

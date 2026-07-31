@@ -46,9 +46,18 @@ function FormFieldWrapper({
         type={type}
         value={field.state.value || ""}
       />
-      {field.state.meta.isTouched && field.state.meta.errors && field.state.meta.errors.length > 0 ? (
+      {field.state.meta.isTouched &&
+      field.state.meta.errors &&
+      field.state.meta.errors.length > 0 ? (
         <p className="text-sm text-yellow-600 font-medium">
-          Warning: {field.state.meta.errors.map((e) => typeof e === "string" ? e : (e as { message?: string })?.message || String(e)).join(", ")}
+          Warning:{" "}
+          {field.state.meta.errors
+            .map((e) =>
+              typeof e === "string"
+                ? e
+                : (e as { message?: string })?.message || String(e),
+            )
+            .join(", ")}
         </p>
       ) : null}
     </div>

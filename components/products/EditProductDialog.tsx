@@ -24,7 +24,7 @@ export function EditProductDialog({
             <ProductForm
               initialData={product}
               onSubmit={async (data) => {
-                await onSubmit(data);                
+                await onSubmit(data);
               }}
               onCancel={onClose}
             />

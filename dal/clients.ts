@@ -4,7 +4,9 @@ import type { Client } from "../db/schema";
 
 export type DataFetchResponse<T> = { data: T | null; reason: string | null };
 
-export async function getClients(page: number = 1): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
+export async function getClients(
+  page: number = 1,
+): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
   return dbGetClients(page)
     .then((data) => {
       if (data) return { data, reason: null };
