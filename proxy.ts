@@ -20,10 +20,9 @@ export default clerkMiddleware(async (auth, request) => {
   }
 
   // Check if the path matches any of the regex patterns in your array
-  const isPublicRoute = publicRoutes.some((pattern) => pattern.test(pathname));
-
   // 3. Protect all other non-public routes
-  if (!isPublicRoute) await auth.protect();
+  if (!publicRoutes.some((pattern) => pattern.test(pathname)))
+    await auth.protect();
 });
 
 export const config = {
