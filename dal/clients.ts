@@ -5,17 +5,12 @@ import type { Client } from "../db/schema";
 
 export type DataFetchResponse<T> = { data: T | null; reason: string | null };
 
-<<<<<<< Updated upstream
-export async function getClients(page: number = 1): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
-  return dbGetClients(page)
-=======
 export async function getClients(
   page: number = 1,
 ): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
   const { userId, orgId } = await auth.protect();
   const tenantId = orgId ?? userId;
   return dbGetClients(page, tenantId)
->>>>>>> Stashed changes
     .then((data) => {
       if (data) return { data, reason: null };
       return { data: null, reason: "Failed to fetch clients" };
