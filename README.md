@@ -2,6 +2,17 @@
 
 Welcome to **Invoices Collab**, a modern, high-performance web application designed for seamless invoice collaboration, client management, and product tracking. Built with the cutting-edge Next.js App Router, Clerk for B2B authentication, and Neon Serverless Postgres.
 
+## Table of Contents
+
+- [Features](#-features)
+- [Getting Started](#%EF%B8%8F-getting-started)
+- [Code Examples](#-code-examples)
+  - [Fetching Data with Tenant Isolation](#fetching-data-with-tenant-isolation)
+  - [Server Actions with Cache Invalidation](#server-actions-with-cache-invalidation)
+  - [Optimistic UI Updates](#optimistic-ui-updates)
+- [License & Terms](#-license--terms)
+
+
 ## 🚀 Features
 
 - **Multi-Tenant Authentication**: Built-in support for personal accounts and organizational workspaces using Clerk.
