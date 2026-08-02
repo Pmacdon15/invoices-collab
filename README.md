@@ -2,6 +2,8 @@
 
 Welcome to **Invoices Collab**, a modern, high-performance web application designed for seamless invoice collaboration, client management, and product tracking. Built with the cutting-edge Next.js App Router, Clerk for B2B authentication, and Neon Serverless Postgres.
 
+![alt text](image.png)
+
 ## Table of Contents
 
 - [Features](#-features)
