@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
 
 export function Pagination({ totalPages }: { totalPages?: number }) {
