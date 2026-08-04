@@ -15,7 +15,7 @@ export async function dbGetClients(
   const offset = (pageNumber - 1) * limit;
 
   const rows = await sql`
-    SELECT id, name, email, phone, address, created_at as "createdAt",
+    SELECT id, org_id, name, email, phone, address, created_at as "createdAt",
            COUNT(*) OVER() AS total_count
     FROM clients
     WHERE org_id = ${orgId}
