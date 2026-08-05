@@ -1,6 +1,11 @@
+import type {
+  Client,
+  Invoice,
+  InvoiceFormValues,
+  Product,
+} from "../../db/schema";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { InvoiceForm } from "./InvoiceForm";
-import type { Invoice, InvoiceFormValues, Client, Product } from "../../db/schema";
 
 interface EditInvoiceDialogProps {
   invoice: Invoice | null;

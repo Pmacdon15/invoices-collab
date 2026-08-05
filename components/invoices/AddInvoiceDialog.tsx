@@ -1,6 +1,6 @@
+import type { Client, InvoiceFormValues, Product } from "../../db/schema";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { InvoiceForm } from "./InvoiceForm";
-import type { InvoiceFormValues, Client, Product } from "../../db/schema";
 
 interface AddInvoiceDialogProps {
   open: boolean;

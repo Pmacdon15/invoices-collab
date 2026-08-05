@@ -6,7 +6,7 @@ import type { DataFetchResponse } from "./clients"; // reusing the type or defin
 
 export async function getProducts(
   page: number = 1,
-   limit = 10,
+  limit = 10,
 ): Promise<DataFetchResponse<{ products: Product[]; totalPages: number }>> {
   const { userId, orgId } = await auth.protect();
   const tenantId = orgId ?? userId;

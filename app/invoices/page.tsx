@@ -17,8 +17,8 @@ export default async function InvoicesPage(props: {
             invoicesPromise={props.searchParams.then((p) =>
               getInvoices(Number(parseParams(p.page))),
             )}
-            clientsPromise={getClients(1,1000)}
-            productsPromise={getProducts(1,1000)}
+            clientsPromise={getClients(1, 1000)}
+            productsPromise={getProducts(1, 1000)}
           />
         </Suspense>
       </div>

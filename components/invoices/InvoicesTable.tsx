@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "../ui/button";
-import type { Invoice, Client, Product } from "../../db/schema";
 import { Edit, Trash2 } from "lucide-react";
+import type { Client, Invoice, Product } from "../../db/schema";
+import { Button } from "../ui/button";
 
 interface InvoicesTableProps {
   invoices: Invoice[];
@@ -11,7 +11,12 @@ interface InvoicesTableProps {
   onEditInvoice: (invoice: Invoice) => void;
 }
 
-export function InvoicesTable({ invoices, clients, products, onEditInvoice }: InvoicesTableProps) {
+export function InvoicesTable({
+  invoices,
+  clients,
+  products,
+  onEditInvoice,
+}: InvoicesTableProps) {
   return (
     <div className="rounded-md border bg-white">
       <table className="w-full text-sm">
@@ -34,9 +39,12 @@ export function InvoicesTable({ invoices, clients, products, onEditInvoice }: In
             </tr>
           ) : (
             invoices.map((invoice) => {
-              const client = clients.find(c => c.id === invoice.clientId);
+              const client = clients.find((c) => c.id === invoice.clientId);
               return (
-                <tr key={invoice.id} className="transition-colors hover:bg-gray-50/50">
+                <tr
+                  key={invoice.id}
+                  className="transition-colors hover:bg-gray-50/50"
+                >
                   <td className="p-4 font-medium">
                     {invoice.id?.substring(0, 8)}...
                   </td>
@@ -50,7 +58,9 @@ export function InvoicesTable({ invoices, clients, products, onEditInvoice }: In
                     </span>
                   </td>
                   <td className="p-4 text-gray-500">
-                    {invoice.createdAt ? new Date(invoice.createdAt).toLocaleDateString() : "N/A"}
+                    {invoice.createdAt
+                      ? new Date(invoice.createdAt).toLocaleDateString()
+                      : "N/A"}
                   </td>
                   <td className="p-4 text-right">
                     <div className="flex justify-end gap-2">
@@ -61,7 +71,11 @@ export function InvoicesTable({ invoices, clients, products, onEditInvoice }: In
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="icon" className="text-red-500">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-red-500"
+                      >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>

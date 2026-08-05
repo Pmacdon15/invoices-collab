@@ -2,7 +2,7 @@
 
 import { startTransition, use, useOptimistic, useState } from "react";
 import type { DataFetchResponse } from "../../dal/clients";
-import type { Invoice, Client, Product } from "../../db/schema";
+import type { Client, Invoice, Product } from "../../db/schema";
 import { useInvoiceMutations } from "../../mutations/useInvoiceMutations";
 import { Pagination } from "../Pagination";
 import { Button } from "../ui/button";
@@ -37,7 +37,7 @@ export function InvoicesPageContent({
   const { data, reason } = use(invoicesPromise);
   const { data: clientsData } = use(clientsPromise);
   const { data: productsData } = use(productsPromise);
-  
+
   const initialInvoices = data?.invoices || [];
   const totalPages = data?.totalPages || 1;
   const clients = clientsData?.clients || [];
@@ -100,9 +100,7 @@ export function InvoicesPageContent({
   return (
     <>
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Invoices
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tight">Invoices</h1>
         <Button onClick={() => setIsAddOpen(true)}>Create Invoice</Button>
       </div>
       {reason ? (

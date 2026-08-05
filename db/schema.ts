@@ -83,4 +83,3 @@ CREATE TABLE IF NOT EXISTS invoices (
 -- ALTER TABLE invoices DROP COLUMN IF EXISTS product_id;
 -- ALTER TABLE invoices ADD COLUMN IF NOT EXISTS items JSONB NOT NULL DEFAULT '[]'::jsonb;
 `;
-

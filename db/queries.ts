@@ -78,10 +78,10 @@ export async function dbGetProducts(
   page: number = 1,
   // userId: string,
   orgId: string | undefined,
-   limit = 10,
+  limit = 10,
 ): Promise<{ products: Product[]; totalPages: number }> {
   "use cache";
-  cacheTag(`products-${page}-${orgId}`, `products-${orgId}`);  
+  cacheTag(`products-${page}-${orgId}`, `products-${orgId}`);
   const pageNumber = Number(page) || 1;
   const offset = (pageNumber - 1) * limit;
 
@@ -154,7 +154,7 @@ export async function dbGetInvoices(
   limit = 10,
 ): Promise<{ invoices: Invoice[]; totalPages: number }> {
   "use cache";
-  cacheTag(`invoices-${page}-${orgId}`, `invoices-${orgId}`);  
+  cacheTag(`invoices-${page}-${orgId}`, `invoices-${orgId}`);
   const pageNumber = Number(page) || 1;
   const offset = (pageNumber - 1) * limit;
 
