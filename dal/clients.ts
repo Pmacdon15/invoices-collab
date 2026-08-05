@@ -6,8 +6,9 @@ export type DataFetchResponse<T> = { data: T | null; reason: string | null };
 
 export async function getClients(
   page: number = 1,
+  limit = 10,
 ): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
-  return dbGetClients(page)
+  return dbGetClients(page, limit)
     .then((data) => {
       if (data) return { data, reason: null };
       return { data: null, reason: "Failed to fetch clients" };

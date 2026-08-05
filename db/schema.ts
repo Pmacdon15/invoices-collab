@@ -42,3 +42,45 @@ CREATE TABLE IF NOT EXISTS products (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 `;
+
+export const InvoiceItemSchema = z.object({
+  id: z.string().optional(), // unique string for form mapping
+  productId: z.string().uuid("Product is required"),
+  quantity: z.number().min(1, "Quantity must be at least 1"),
+  amount: z.string(),
+});
+
+export const InvoiceSchema = z.object({
+  id: z.uuid().optional(),
+  orgId: z.string().max(255).optional(),
+  clientId: z.string().uuid("Client is required"),
+  items: z.array(InvoiceItemSchema).default([]),
+  amount: z.string().min(1, "Amount is required"),
+  status: z.enum(["draft", "sent", "paid", "overdue"]).default("draft"),
+  issueDate: z.string().optional(),
+  dueDate: z.string().optional(),
+  createdAt: z.date().optional(),
+});
+
+export type InvoiceItem = z.infer<typeof InvoiceItemSchema>;
+export type Invoice = z.infer<typeof InvoiceSchema>;
+export type InvoiceFormValues = z.infer<typeof InvoiceSchema>;
+
+export const createInvoicesTableSql = `
+CREATE TABLE IF NOT EXISTS invoices (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id VARCHAR(255) NOT NULL,
+  client_id UUID NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+  items JSONB NOT NULL DEFAULT '[]'::jsonb,
+  amount NUMERIC(10, 2) NOT NULL,
+  status VARCHAR(50) NOT NULL DEFAULT 'draft',
+  issue_date DATE,
+  due_date DATE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- If migrating from the old schema:
+-- ALTER TABLE invoices DROP COLUMN IF EXISTS product_id;
+-- ALTER TABLE invoices ADD COLUMN IF NOT EXISTS items JSONB NOT NULL DEFAULT '[]'::jsonb;
+`;
+
