@@ -106,7 +106,7 @@ export function InvoiceForm({
                     if (val === "ADD_NEW") {
                       setIsAddClientOpen(true);
                     } else {
-                      field.handleChange(val);
+                      field.handleChange(val ?? "");
                     }
                   }}
                 >
@@ -229,7 +229,7 @@ export function InvoiceForm({
                                   const newItems = [...items];
                                   newItems[index] = {
                                     ...item,
-                                    productId: val,
+                                    productId: val ?? "",
                                     amount: product
                                       ? (
                                           parseFloat(product.price) *
