@@ -114,7 +114,6 @@ export function InvoicesPageContent({
           <InvoicesTable
             invoices={optimisticInvoices}
             clients={clients}
-            products={products}
             onEditInvoice={setEditingInvoice}
           />
           <Pagination totalPages={totalPages} />

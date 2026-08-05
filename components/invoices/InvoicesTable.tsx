@@ -1,20 +1,18 @@
 "use client";
 
 import { Edit, Trash2 } from "lucide-react";
-import type { Client, Invoice, Product } from "../../db/schema";
+import type { Client, Invoice } from "../../db/schema";
 import { Button } from "../ui/button";
 
 interface InvoicesTableProps {
   invoices: Invoice[];
   clients: Client[];
-  products: Product[];
   onEditInvoice: (invoice: Invoice) => void;
 }
 
 export function InvoicesTable({
   invoices,
   clients,
-  products,
   onEditInvoice,
 }: InvoicesTableProps) {
   return (

@@ -147,7 +147,11 @@ export function InvoiceForm({
                 <Label htmlFor="status">Status</Label>
                 <Select
                   value={field.state.value || "draft"}
-                  onValueChange={(val) => field.handleChange(val as any)}
+                  onValueChange={(val) =>
+                    field.handleChange(
+                      val as "draft" | "sent" | "paid" | "overdue",
+                    )
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select status" />
