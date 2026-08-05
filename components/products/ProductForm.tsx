@@ -1,14 +1,14 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
-import { type ClientFormValues, ClientSchema } from "../../db/schema";
+import { type ProductFormValues, ProductSchema } from "../../db/schema";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
-interface ClientFormProps {
-  initialData?: ClientFormValues | null;
-  onSubmit: (values: ClientFormValues) => Promise<void> | void;
+interface ProductFormProps {
+  initialData?: ProductFormValues | null;
+  onSubmit: (values: ProductFormValues) => Promise<void> | void;
   onCancel: () => void;
 }
 
@@ -64,24 +64,25 @@ function FormFieldWrapper({
   );
 }
 
-export function ClientForm({
+export function ProductForm({
   initialData,
   onSubmit,
   onCancel,
-}: ClientFormProps) {
+}: ProductFormProps) {
   const form = useForm({
     defaultValues: {
       name: initialData?.name || "",
-      email: initialData?.email || "",
-      phone: initialData?.phone || "",
-      address: initialData?.address || "",
-    } as ClientFormValues,
+      description: initialData?.description || "",
+      price: initialData?.price || "",
+      sku: initialData?.sku || "",
+      orgId: initialData?.orgId,
+    } as ProductFormValues,
     onSubmit: async ({ value }) => {
       await onSubmit(value);
     },
     validators: {
-      onBlur: ClientSchema,
-      onSubmit: ClientSchema,
+      onBlur: ProductSchema,
+      onSubmit: ProductSchema,
     },
   });
 
@@ -99,38 +100,37 @@ export function ClientForm({
           <FormFieldWrapper
             field={field}
             label="Name"
-            placeholder="e.g. John Doe"
+            placeholder="e.g. Website Development"
           />
         )}
       </form.Field>
 
-      <form.Field name="email">
+      <form.Field name="description">
         {(field) => (
           <FormFieldWrapper
             field={field}
-            label="Email"
-            placeholder="john@example.com"
-            type="email"
+            label="Description"
+            placeholder="Description of product or service"
           />
         )}
       </form.Field>
 
-      <form.Field name="phone">
+      <form.Field name="price">
         {(field) => (
           <FormFieldWrapper
             field={field}
-            label="Phone Number"
-            placeholder="123-456-7890"
+            label="Price"
+            placeholder="e.g. 100.00"
           />
         )}
       </form.Field>
 
-      <form.Field name="address">
+      <form.Field name="sku">
         {(field) => (
           <FormFieldWrapper
             field={field}
-            label="Address"
-            placeholder="123 Main St"
+            label="SKU / Item Code"
+            placeholder="e.g. WEB-DEV-01"
           />
         )}
       </form.Field>
@@ -144,7 +144,7 @@ export function ClientForm({
         >
           {([canSubmit, isSubmitting]) => (
             <Button disabled={!canSubmit} type="submit">
-              {isSubmitting ? "Saving..." : "Save Client"}
+              {isSubmitting ? "Saving..." : "Save Product/Service"}
             </Button>
           )}
         </form.Subscribe>

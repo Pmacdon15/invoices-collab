@@ -1,28 +1,28 @@
-import type { Client } from "../../db/schema";
+import type { Product } from "../../db/schema";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { ClientForm } from "./ClientForm";
+import { ProductForm } from "./ProductForm";
 
-interface EditClientDialogProps {
-  client: Client | null;
+interface EditProductDialogProps {
+  product: Product | null;
   onClose: () => void;
-  onSubmit: (data: Client) => void;
+  onSubmit: (data: Product) => void;
 }
 
-export function EditClientDialog({
-  client,
+export function EditProductDialog({
+  product,
   onClose,
   onSubmit,
-}: EditClientDialogProps) {
+}: EditProductDialogProps) {
   return (
-    <Dialog open={!!client} onOpenChange={(open) => !open && onClose()}>
+    <Dialog open={!!product} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
-          <DialogTitle>Edit Client</DialogTitle>
+          <DialogTitle>Edit Product/Service</DialogTitle>
         </DialogHeader>
         <div className="mt-4">
-          {client && (
-            <ClientForm
-              initialData={client}
+          {product && (
+            <ProductForm
+              initialData={product}
               onSubmit={async (data) => {
                 await onSubmit(data);
               }}
