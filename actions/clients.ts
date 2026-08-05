@@ -15,9 +15,7 @@ export async function addClientAction(
 
   return dalResult.match(
     (data) => {
-      updateTag(`clients`);
-      //For when we add auth
-      // updateTag(`clients-${data.orgId}`)
+      updateTag(`clients-${data.orgId}`);
       return { data, reason: null };
     },
     (reason) => {
@@ -34,9 +32,7 @@ export async function editClientAction(
 
   return dalResult.match(
     (data) => {
-      updateTag(`clients`);
-      //For when we add auth
-      // updateTag(`clients-${data.orgId}`)
+      updateTag(`clients-${data.orgId}`);
       return { data, reason: null };
     },
     (reason) => {
