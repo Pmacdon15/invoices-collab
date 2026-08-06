@@ -2,7 +2,7 @@
 
 import { useForm } from "@tanstack/react-form";
 import { Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { startTransition, useOptimistic, useState } from "react";
 import {
   type Client,
   type InvoiceFormValues,
@@ -39,8 +39,20 @@ export function InvoiceForm({
   onSubmit,
   onCancel,
 }: InvoiceFormProps) {
-  const [localClients, setLocalClients] = useState<Client[]>(clients);
-  const [localProducts, setLocalProducts] = useState<Product[]>(products);
+  const [optimisticClients, setOptimisticClients] = useOptimistic(
+    clients,
+    (state, action: { type: "add"; client: Client }) => {
+      if (action.type === "add") return [...state, action.client];
+      return state;
+    }
+  );
+  const [optimisticProducts, setOptimisticProducts] = useOptimistic(
+    products,
+    (state, action: { type: "add"; product: Product }) => {
+      if (action.type === "add") return [...state, action.product];
+      return state;
+    }
+  );
   const [isAddClientOpen, setIsAddClientOpen] = useState(false);
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
 
@@ -68,7 +80,6 @@ export function InvoiceForm({
 
   const { addMutation: addClientMutation } = useClientMutations({
     onAddSuccess: (newClient) => {
-      setLocalClients((prev) => [...prev, newClient]);
       form.setFieldValue("clientId", newClient.id as string);
       setIsAddClientOpen(false);
     },
@@ -76,10 +87,7 @@ export function InvoiceForm({
 
   const { addMutation: addProductMutation } = useProductMutations({
     onAddSuccess: (newProduct) => {
-      setLocalProducts((prev) => [...prev, newProduct]);
-      setIsAddProductOpen(false);
-      // Wait, we don't know which line item opened this dialog.
-      // We can just add it to the state so the user can select it.
+      setIsAddProductOpen(false);     
     },
   });
 
@@ -113,7 +121,7 @@ export function InvoiceForm({
                   <SelectTrigger>
                     <SelectValue placeholder="Select a client">
                       {field.state.value && field.state.value !== "ADD_NEW"
-                        ? localClients.find((c) => c.id === field.state.value)
+                        ? optimisticClients.find((c) => c.id === field.state.value)
                             ?.name
                         : undefined}
                     </SelectValue>
@@ -125,7 +133,7 @@ export function InvoiceForm({
                     >
                       + Add New Client
                     </SelectItem>
-                    {localClients.map((client) => (
+                    {optimisticClients.map((client) => (
                       <SelectItem key={client.id} value={client.id as string}>
                         {client.name}
                       </SelectItem>
@@ -223,7 +231,7 @@ export function InvoiceForm({
                                 if (val === "ADD_NEW") {
                                   setIsAddProductOpen(true);
                                 } else {
-                                  const product = localProducts.find(
+                                  const product = optimisticProducts.find(
                                     (p) => p.id === val,
                                   );
                                   const newItems = [...items];
@@ -245,7 +253,7 @@ export function InvoiceForm({
                                 <SelectValue placeholder="Select...">
                                   {item.productId &&
                                   item.productId !== "ADD_NEW"
-                                    ? localProducts.find(
+                                    ? optimisticProducts.find(
                                         (p) => p.id === item.productId,
                                       )?.name
                                     : undefined}
@@ -258,7 +266,7 @@ export function InvoiceForm({
                                 >
                                   + Add Product
                                 </SelectItem>
-                                {localProducts.map((p) => (
+                                {optimisticProducts.map((p) => (
                                   <SelectItem key={p.id} value={p.id as string}>
                                     {p.name}
                                   </SelectItem>
@@ -276,7 +284,7 @@ export function InvoiceForm({
                               value={item.quantity}
                               onChange={(e) => {
                                 const qty = parseInt(e.target.value, 10) || 1;
-                                const product = localProducts.find(
+                                const product = optimisticProducts.find(
                                   (p) => p.id === item.productId,
                                 );
                                 const newItems = [...items];
@@ -371,12 +379,24 @@ export function InvoiceForm({
       <AddClientDialog
         open={isAddClientOpen}
         onOpenChange={setIsAddClientOpen}
-        onSubmit={(client) => addClientMutation.mutate(client)}
+        onSubmit={(client) => {
+          const tempId = crypto.randomUUID();
+          startTransition(() => {
+            setOptimisticClients({ type: "add", client: { ...client, id: tempId } as Client });
+          });
+          form.setFieldValue("clientId", tempId);
+          addClientMutation.mutate(client);
+        }}
       />
       <AddProductDialog
         open={isAddProductOpen}
         onOpenChange={setIsAddProductOpen}
-        onSubmit={(product) => addProductMutation.mutate(product)}
+        onSubmit={(product) => {
+          startTransition(() => {
+            setOptimisticProducts({ type: "add", product: { ...product, id: crypto.randomUUID() } as Product });
+          });
+          addProductMutation.mutate(product);
+        }}
       />
     </>
   );
