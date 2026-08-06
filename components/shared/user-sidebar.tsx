@@ -66,7 +66,9 @@ export function UserSidebar({
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <Link href={item.url}>
-                      <SidebarMenuButton>{item.title}</SidebarMenuButton>
+                      <SidebarMenuButton size={"lg"}>
+                        {item.title}
+                      </SidebarMenuButton>
                     </Link>
                   </SidebarMenuItem>
                 ))}
@@ -79,12 +81,15 @@ export function UserSidebar({
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton onClick={() => openUserProfile()}>
+                <SidebarMenuButton
+                  size={"lg"}
+                  onClick={() => openUserProfile()}
+                >
                   Settings
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton onClick={() => signOut()}>
+                <SidebarMenuButton size={"lg"} onClick={() => signOut()}>
                   Sign out
                 </SidebarMenuButton>
               </SidebarMenuItem>

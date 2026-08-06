@@ -88,7 +88,9 @@ export function MarketingSidebar({
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <Link href={item.url}>
-                      <SidebarMenuButton>{item.title}</SidebarMenuButton>
+                      <SidebarMenuButton size={"lg"}>
+                        {item.title}
+                      </SidebarMenuButton>
                     </Link>
                   </SidebarMenuItem>
                 ))}
