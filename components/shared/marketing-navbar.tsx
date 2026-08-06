@@ -6,7 +6,7 @@ import SecondaryLink from "@/components/shared/secondary-link";
 
 export default function MarketingNavbar() {
   return (
-    <nav className="flex basis-full items-center justify-between px-2 py-4 font-medium md:px-8 ">
+    <nav className="flex basis-full items-center justify-between px-2 py-4 font-medium md:px-8 h-18">
       <Link href={"/"} className="flex items-center gap-2">
         <Image src="/logo.webp" alt="logo" width={32} height={32} />
         <span className="font-bold">VivaPro</span>
