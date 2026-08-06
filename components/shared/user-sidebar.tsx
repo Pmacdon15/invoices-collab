@@ -29,12 +29,12 @@ const data = {
           url: "/clients",
         },
         {
-          title: "Invoices",
-          url: "/invoices",
+          title: "Products",
+          url: "/products",
         },
         {
-          title: "Products & Services",
-          url: "/products",
+          title: "Invoices",
+          url: "/invoices",
         },
       ],
     },
