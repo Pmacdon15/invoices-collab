@@ -19,20 +19,18 @@ export default function UserNavbar() {
         <li>
           <Link href="/invoices">Invoices</Link>
         </li>
-        <li>
-          <span className="hidden md:block">
-            <UserButton
-              showName={false}
-              appearance={{
-                elements: {
-                  userButtonAvatarBox: {
-                    width: "2.25rem",
-                    height: "2.25rem",
-                  },
+        <li className="hidden md:block">
+          <UserButton
+            showName={false}
+            appearance={{
+              elements: {
+                userButtonAvatarBox: {
+                  width: "2.25rem",
+                  height: "2.25rem",
                 },
-              }}
-            />
-          </span>
+              },
+            }}
+          />
         </li>
       </ul>
     </nav>
