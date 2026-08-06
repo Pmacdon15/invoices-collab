@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type * as React from "react";
 import { Suspense } from "react";
-import Spinner from "@/components/shared/spinner";
 import {
   Sidebar,
   SidebarContent,
@@ -67,6 +66,8 @@ const data = {
   ],
 };
 
+import { SidebarSkeleton } from "@/components/SidebarSkeleton";
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const isMobile = useIsMobile();
 
@@ -81,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        <Suspense fallback={<Spinner size="sm" />}>
+        <Suspense fallback={<SidebarSkeleton />}>
           <Show when="signed-out">
             {data.navMain.map((item) => (
               <SidebarGroup key={item.title}>
