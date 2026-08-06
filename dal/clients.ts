@@ -10,6 +10,7 @@ export async function getClients(
 ): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
   const { userId, orgId } = await auth.protect();
   const tenantId = orgId ?? userId;
+  await new Promise((resolve) => setTimeout(resolve, 5000));
   return dbGetClients(page, tenantId)
     .then((data) => {
       if (data) return { data, reason: null };

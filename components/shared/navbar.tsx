@@ -7,7 +7,25 @@ import Link from "next/link";
 import { Suspense } from "react";
 import PrimaryLink from "@/components/shared/primary-link";
 import SecondaryLink from "@/components/shared/secondary-link";
-import Spinner from "@/components/shared/spinner";
+import { Skeleton } from "@/components/ui/skeleton";
+
+function NavbarSkeleton() {
+  return (
+    <>
+      <div className="hidden items-center gap-8 md:flex">
+        <Skeleton className="h-4 w-12" />
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-4 w-16" />
+        <Skeleton className="h-4 w-4" />
+        <Skeleton className="h-8 w-16" />
+        <Skeleton className="h-8 w-24 rounded-full" />
+      </div>
+      <div className="md:hidden">
+        <Skeleton className="h-7 w-7 rounded-full" />
+      </div>
+    </>
+  );
+}
 
 export default function Navbar() {
   return (
@@ -16,7 +34,7 @@ export default function Navbar() {
         <Image src="/logo.webp" alt="logo" width={32} height={32} />
         <span className="font-bold">VivaPro</span>
       </Link>
-      <Suspense fallback={<Spinner size="sm" />}>
+      <Suspense fallback={<NavbarSkeleton />}>
         <Show when={"signed-out"}>
           <ul className="hidden items-center gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
             <li>
