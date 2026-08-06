@@ -13,7 +13,17 @@ export default function UserNavbar() {
         <UserButton showName={false} />
       </span>
       <span className="hidden md:block">
-        <UserButton showName={true} />
+        <UserButton
+          showName={false}
+          appearance={{
+            elements: {
+              userButtonAvatarBox: {
+                width: "2.25rem",
+                height: "2.25rem",
+              },
+            },
+          }}
+        />
       </span>
     </nav>
   );
