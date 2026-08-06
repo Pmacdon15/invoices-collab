@@ -1,3 +1,4 @@
+import { auth } from "@clerk/nextjs/server";
 import { err, ok, type Result } from "neverthrow";
 import { dbAddClient, dbEditClient, dbGetClients } from "../db/queries";
 import type { Client } from "../db/schema";
@@ -8,7 +9,9 @@ export async function getClients(
   page: number = 1,
   limit = 10,
 ): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
-  return dbGetClients(page, limit)
+  const { userId, orgId } = await auth.protect();
+  const tenantId = orgId ?? userId;
+  return dbGetClients(page, tenantId)
     .then((data) => {
       if (data) return { data, reason: null };
       return { data: null, reason: "Failed to fetch clients" };
@@ -22,7 +25,9 @@ export async function getClients(
 export async function addClient(
   client: Client,
 ): Promise<Result<Client, string>> {
-  return dbAddClient(client)
+  const { userId, orgId } = await auth.protect();
+  const tenantId = orgId ?? userId;
+  return dbAddClient(client, tenantId)
     .then((data) => {
       return ok(data);
     })
@@ -36,7 +41,9 @@ export async function editClient(
   id: string,
   updates: Partial<Client>,
 ): Promise<Result<Client, string>> {
-  return dbEditClient(id, updates)
+  const { userId, orgId } = await auth.protect();
+  const tenantId = orgId ?? userId;
+  return dbEditClient(id, updates, tenantId)
     .then((data) => {
       return ok(data);
     })

@@ -9,17 +9,16 @@ export async function dbGetClients(
   limit = 10,
 ): Promise<{ clients: Client[]; totalPages: number }> {
   "use cache";
-  cacheTag(`clients-${page}`, `clients`);
-  //For when we add auth
-  // cacheTag(`clients-${page}-${orgId}`,`clients-${orgId}`);
+  cacheTag(`clients-${page}-${orgId}`, `clients-${orgId}`);
 
   const pageNumber = Number(page) || 1;
   const offset = (pageNumber - 1) * limit;
 
   const rows = await sql`
-    SELECT id, name, email, phone, address, created_at as "createdAt",
+    SELECT id, org_id, name, email, phone, address, created_at as "createdAt",
            COUNT(*) OVER() AS total_count
     FROM clients
+    WHERE org_id = ${orgId}
     ORDER BY created_at DESC
     LIMIT ${limit} OFFSET ${offset}
   `;
@@ -38,16 +37,20 @@ export async function dbGetClients(
     phone: row.phone,
     address: row.address,
     createdAt: row.createdAt,
+    orgId: row.org_id,
   }));
 
   return { clients, totalPages };
 }
 
-export async function dbAddClient(client: Client): Promise<Client> {
+export async function dbAddClient(
+  client: Client,
+  orgId: string | undefined,
+): Promise<Client> {
   const rows = await sql`
-    INSERT INTO clients (name, email, phone, address)
-    VALUES (${client.name}, ${client.email}, ${client.phone}, ${client.address})
-    RETURNING id, name, email, phone, address, created_at as "createdAt"
+    INSERT INTO clients (org_id, name, email, phone, address)
+    VALUES (${orgId}, ${client.name}, ${client.email}, ${client.phone}, ${client.address})
+    RETURNING id, org_id as "orgId", name, email, phone, address, created_at as "createdAt"
   `;
   return rows[0] as Client;
 }
@@ -55,6 +58,7 @@ export async function dbAddClient(client: Client): Promise<Client> {
 export async function dbEditClient(
   id: string,
   updates: Partial<Client>,
+  orgId: string | undefined,
 ): Promise<Client> {
   // Using COALESCE to only update fields that are provided
   const rows = await sql`
@@ -63,8 +67,8 @@ export async function dbEditClient(
         email = COALESCE(${updates.email ?? null}, email),
         phone = COALESCE(${updates.phone ?? null}, phone),
         address = COALESCE(${updates.address ?? null}, address)
-    WHERE id = ${id}
-    RETURNING id, name, email, phone, address, created_at as "createdAt"
+    WHERE id = ${id} AND org_id = ${orgId}
+    RETURNING id, org_id as "orgId", name, email, phone, address, created_at as "createdAt"
   `;
 
   if (rows.length === 0) {
