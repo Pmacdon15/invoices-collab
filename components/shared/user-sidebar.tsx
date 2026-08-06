@@ -79,12 +79,12 @@ export function UserSidebar({
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton onClick={() => openUserProfile}>
+                <SidebarMenuButton onClick={() => openUserProfile()}>
                   Settings
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton onClick={() => signOut}>
+                <SidebarMenuButton onClick={() => signOut()}>
                   Sign out
                 </SidebarMenuButton>
               </SidebarMenuItem>
