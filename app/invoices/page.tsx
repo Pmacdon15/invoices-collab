@@ -6,9 +6,7 @@ import { getClients } from "../../dal/clients";
 import { getInvoices } from "../../dal/invoices";
 import { getProducts } from "../../dal/products";
 
-export default async function InvoicesPage(props: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default async function InvoicesPage(props: PageProps<"/invoices">) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-5xl p-8">
