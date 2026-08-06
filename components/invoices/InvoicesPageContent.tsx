@@ -87,6 +87,21 @@ export function InvoicesPageContent({
     editMutation.mutate({ id: editingInvoice.id, updates: newData });
   };
 
+  const handleUpdateStatus = (
+    invoice: Invoice,
+    newStatus: Invoice["status"]
+  ) => {
+    if (!invoice.id) return;
+    const updatedInvoice = { ...invoice, status: newStatus };
+    startTransition(() => {
+      setOptimisticInvoices({
+        type: "edit",
+        invoice: updatedInvoice,
+      });
+    });
+    editMutation.mutate({ id: invoice.id, updates: updatedInvoice });
+  };
+
   if (reason) {
     return (
       <div className="mx-auto max-w-5xl p-8 bg-white text-zinc-900">
@@ -115,6 +130,7 @@ export function InvoicesPageContent({
             invoices={optimisticInvoices}
             clients={clients}
             onEditInvoice={setEditingInvoice}
+            onUpdateStatus={handleUpdateStatus}
           />
           <Pagination totalPages={totalPages} />
         </>

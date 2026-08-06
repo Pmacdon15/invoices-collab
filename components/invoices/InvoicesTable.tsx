@@ -3,17 +3,26 @@
 import { Edit, Trash2 } from "lucide-react";
 import type { Client, Invoice } from "../../db/schema";
 import { Button } from "../ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 interface InvoicesTableProps {
   invoices: Invoice[];
   clients: Client[];
   onEditInvoice: (invoice: Invoice) => void;
+  onUpdateStatus: (invoice: Invoice, newStatus: Invoice["status"]) => void;
 }
 
 export function InvoicesTable({
   invoices,
   clients,
   onEditInvoice,
+  onUpdateStatus,
 }: InvoicesTableProps) {
   return (
     <div className="rounded-md border bg-white">
@@ -51,9 +60,25 @@ export function InvoicesTable({
                   </td>
                   <td className="p-4">${invoice.amount}</td>
                   <td className="p-4">
-                    <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize bg-blue-100 text-blue-800">
-                      {invoice.status}
-                    </span>
+                    <Select
+                      value={invoice.status}
+                      onValueChange={(val) =>
+                        onUpdateStatus(
+                          invoice,
+                          val as "draft" | "sent" | "paid" | "overdue"
+                        )
+                      }
+                    >
+                      <SelectTrigger className="h-7 w-[110px] rounded-full border-none bg-blue-100 px-2.5 py-0.5 text-xs font-semibold capitalize text-blue-800 focus:ring-0 focus:ring-offset-0">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="draft">Draft</SelectItem>
+                        <SelectItem value="sent">Sent</SelectItem>
+                        <SelectItem value="paid">Paid</SelectItem>
+                        <SelectItem value="overdue">Overdue</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </td>
                   <td className="p-4 text-gray-500">
                     {invoice.createdAt
