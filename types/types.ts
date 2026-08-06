@@ -1,5 +1,4 @@
-import type { Client } from "@neondatabase/serverless";
-import type { Invoice } from "@/db/schema";
+import type { Client, Invoice } from "@/db/schema";
 
 export interface InvoicesTableProps {
   invoices: Invoice[];
