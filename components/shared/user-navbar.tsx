@@ -1,6 +1,7 @@
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { NavLinkWrapper } from "@/components/shared/nav-link";
 
 export default function UserNavbar() {
   return (
@@ -11,13 +12,13 @@ export default function UserNavbar() {
       </Link>
       <ul className="hidden items-center gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
         <li>
-          <Link href="/clients">Clients</Link>
+          <NavLinkWrapper href="/clients" text="Clients" />
         </li>
         <li>
-          <Link href="/products">Products</Link>
+          <NavLinkWrapper href="/products" text="Products" />
         </li>
         <li>
-          <Link href="/invoices">Invoices</Link>
+          <NavLinkWrapper href="/invoices" text="Invoices" />
         </li>
         <li className="hidden md:block">
           <UserButton
