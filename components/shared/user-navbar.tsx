@@ -1,4 +1,4 @@
-import { UserButton } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { NavLinkWrapper } from "@/components/shared/nav-link";
@@ -20,22 +20,23 @@ export default function UserNavbar() {
         <li>
           <NavLinkWrapper href="/invoices" text="Invoices" />
         </li>
-        <li className="hidden md:block">
-          <UserButton
-            showName={false}
-            appearance={{
-              elements: {
-                userButtonAvatarBox: {
-                  width: "2.25rem",
-                  height: "2.25rem",
+        <li className="hidden md:block min-w-9 min-h-9">
+          <ClerkLoading>
+            <div className="h-8 w-8 animate-pulse rounded-full bg-primary" />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <UserButton
+              showName={false}
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: {
+                    width: "2.25rem",
+                    height: "2.25rem",
+                  },
                 },
-                userButtonTrigger: {
-                  minWidth: "2.25rem",
-                  minHeight: "2.25rem",
-                },
-              },
-            }}
-          />
+              }}
+            />
+          </ClerkLoaded>
         </li>
       </ul>
     </nav>
