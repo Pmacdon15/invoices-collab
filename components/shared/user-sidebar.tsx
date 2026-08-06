@@ -1,5 +1,6 @@
 "use client";
 
+import { useClerk } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import type * as React from "react";
@@ -20,44 +21,20 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const data = {
   navMain: [
     {
-      title: "Getting Started",
+      title: "Dashboard",
       url: "#",
       items: [
         {
-          title: "About",
-          url: "#about",
+          title: "Clients",
+          url: "/clients",
         },
         {
-          title: "How it works",
-          url: "#works",
+          title: "Invoices",
+          url: "/invoices",
         },
         {
-          title: "Pricing",
-          url: "/pricing",
-        },
-      ],
-    },
-    {
-      title: "Learn more",
-      url: "/",
-      items: [
-        {
-          title: "Terms and Conditions",
-          url: "/terms",
-        },
-        {
-          title: "Privacy Policy",
-          url: "/privacy",
-        },
-      ],
-    },
-    {
-      title: "Already have an account?",
-      url: "/",
-      items: [
-        {
-          title: "Sign in",
-          url: "/sign-in",
+          title: "Products & Services",
+          url: "/products",
         },
       ],
     },
@@ -68,6 +45,7 @@ export function UserSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const isMobile = useIsMobile();
+  const { openUserProfile, signOut } = useClerk();
 
   if (!isMobile) return null;
 
@@ -96,6 +74,23 @@ export function UserSidebar({
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+        <SidebarGroup>
+          <SidebarGroupLabel>Account</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton onClick={() => openUserProfile}>
+                  Settings
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton onClick={() => signOut}>
+                  Sign out
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

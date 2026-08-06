@@ -9,22 +9,32 @@ export default function UserNavbar() {
         <Image src="/logo.webp" alt="logo" width={32} height={32} />
         <span className="font-bold">VivaPro</span>
       </Link>
-      <span className="md:hidden">
-        <UserButton showName={false} />
-      </span>
-      <span className="hidden md:block">
-        <UserButton
-          showName={false}
-          appearance={{
-            elements: {
-              userButtonAvatarBox: {
-                width: "2.25rem",
-                height: "2.25rem",
-              },
-            },
-          }}
-        />
-      </span>
+      <ul className="hidden items-center gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
+        <li>
+          <Link href="/clients">Clients</Link>
+        </li>
+        <li>
+          <Link href="/products">Products</Link>
+        </li>
+        <li>
+          <Link href="/invoices">Invoices</Link>
+        </li>
+        <li>
+          <span className="hidden md:block">
+            <UserButton
+              showName={false}
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: {
+                    width: "2.25rem",
+                    height: "2.25rem",
+                  },
+                },
+              }}
+            />
+          </span>
+        </li>
+      </ul>
     </nav>
   );
 }
