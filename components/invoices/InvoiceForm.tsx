@@ -44,14 +44,14 @@ export function InvoiceForm({
     (state, action: { type: "add"; client: Client }) => {
       if (action.type === "add") return [...state, action.client];
       return state;
-    }
+    },
   );
   const [optimisticProducts, setOptimisticProducts] = useOptimistic(
     products,
     (state, action: { type: "add"; product: Product }) => {
       if (action.type === "add") return [...state, action.product];
       return state;
-    }
+    },
   );
   const [isAddClientOpen, setIsAddClientOpen] = useState(false);
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
@@ -86,8 +86,8 @@ export function InvoiceForm({
   });
 
   const { addMutation: addProductMutation } = useProductMutations({
-    onAddSuccess: (newProduct) => {
-      setIsAddProductOpen(false);     
+    onAddSuccess: (_newProduct) => {
+      setIsAddProductOpen(false);
     },
   });
 
@@ -121,8 +121,9 @@ export function InvoiceForm({
                   <SelectTrigger>
                     <SelectValue placeholder="Select a client">
                       {field.state.value && field.state.value !== "ADD_NEW"
-                        ? optimisticClients.find((c) => c.id === field.state.value)
-                            ?.name
+                        ? optimisticClients.find(
+                            (c) => c.id === field.state.value,
+                          )?.name
                         : undefined}
                     </SelectValue>
                   </SelectTrigger>
@@ -382,7 +383,10 @@ export function InvoiceForm({
         onSubmit={(client) => {
           const tempId = crypto.randomUUID();
           startTransition(() => {
-            setOptimisticClients({ type: "add", client: { ...client, id: tempId } as Client });
+            setOptimisticClients({
+              type: "add",
+              client: { ...client, id: tempId } as Client,
+            });
           });
           form.setFieldValue("clientId", tempId);
           addClientMutation.mutate(client);
@@ -393,7 +397,10 @@ export function InvoiceForm({
         onOpenChange={setIsAddProductOpen}
         onSubmit={(product) => {
           startTransition(() => {
-            setOptimisticProducts({ type: "add", product: { ...product, id: crypto.randomUUID() } as Product });
+            setOptimisticProducts({
+              type: "add",
+              product: { ...product, id: crypto.randomUUID() } as Product,
+            });
           });
           addProductMutation.mutate(product);
         }}

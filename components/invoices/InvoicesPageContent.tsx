@@ -41,7 +41,7 @@ export function InvoicesPageContent({
   const initialInvoices = data?.invoices || [];
   const totalPages = data?.totalPages || 1;
   const clients = clientsData?.clients || [];
-  const products = productsData?.products || []; 
+  const products = productsData?.products || [];
 
   const [optimisticInvoices, setOptimisticInvoices] = useOptimistic(
     initialInvoices,
