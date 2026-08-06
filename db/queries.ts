@@ -5,6 +5,7 @@ import type { Client, Invoice, Product } from "./schema";
 const sql = neon(String(process.env.DATABASE_URL));
 
 export async function dbGetClients(
+  orgId:string,
   page: number = 1,
   limit = 10,
 ): Promise<{ clients: Client[]; totalPages: number }> {
