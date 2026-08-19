@@ -1,8 +1,8 @@
 import { Suspense } from "react";
+import { ClientsPageContent } from "@/components/clients/ClientsPageContent";
 import Spinner from "@/components/shared/spinner";
+import { getClients } from "@/dal/clients";
 import { parseParams } from "@/lib/utils";
-import { ClientsPageContent } from "../../components/clients/ClientsPageContent";
-import { getClients } from "../../dal/clients";
 
 export default function ClientsPage(props: PageProps<"/clients">) {
   return (

@@ -1,8 +1,8 @@
 import { Suspense } from "react";
+import { ProductsPageContent } from "@/components/products/ProductsPageContent";
 import Spinner from "@/components/shared/spinner";
+import { getProducts } from "@/dal/products";
 import { parseParams } from "@/lib/utils";
-import { ProductsPageContent } from "../../components/products/ProductsPageContent";
-import { getProducts } from "../../dal/products";
 
 export default function ProductsPage(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

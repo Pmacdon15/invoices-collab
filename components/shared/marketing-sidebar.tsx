@@ -1,11 +1,8 @@
 "use client";
 
-import { Show } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import type * as React from "react";
-import { Suspense } from "react";
-import Spinner from "@/components/shared/spinner";
 import {
   Sidebar,
   SidebarContent,
@@ -67,7 +64,9 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function MarketingSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   const isMobile = useIsMobile();
 
   if (!isMobile) return null;
@@ -81,27 +80,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        <Suspense fallback={<Spinner size="sm" />}>
-          <Show when="signed-out">
-            {data.navMain.map((item) => (
-              <SidebarGroup key={item.title}>
-                <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {item.items.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <Link href={item.url}>
-                          <SidebarMenuButton>{item.title}</SidebarMenuButton>
-                        </Link>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
-            ))}
-          </Show>
-        </Suspense>
-        {/* todo: add array for signed in users*/}
+        {data.navMain.map((item) => (
+          <SidebarGroup key={item.title}>
+            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {item.items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <Link href={item.url}>
+                      <SidebarMenuButton size={"lg"}>
+                        {item.title}
+                      </SidebarMenuButton>
+                    </Link>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
