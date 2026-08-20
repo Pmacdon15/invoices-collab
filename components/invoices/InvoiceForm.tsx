@@ -5,6 +5,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { startTransition, useOptimistic, useState } from "react";
 import {
   type Client,
+  type Invoice,
   type InvoiceFormValues,
   InvoiceSchema,
   type Product,
@@ -28,7 +29,7 @@ interface InvoiceFormProps {
   initialData?: InvoiceFormValues | null;
   clients: Client[];
   products: Product[];
-  onSubmit: (values: InvoiceFormValues) => Promise<void> | void;
+  onSubmit: (values: InvoiceFormValues) => void;
   onCancel: () => void;
 }
 

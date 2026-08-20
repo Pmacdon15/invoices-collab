@@ -2,7 +2,12 @@
 
 import { startTransition, use, useOptimistic, useState } from "react";
 import type { DataFetchResponse } from "../../dal/clients";
-import type { Client, Invoice, Product } from "../../db/schema";
+import type {
+  Client,
+  Invoice,
+  InvoiceFormValues,
+  Product,
+} from "../../db/schema";
 import { useInvoiceMutations } from "../../mutations/useInvoiceMutations";
 import { Pagination } from "../Pagination";
 import { Button } from "../ui/button";
@@ -66,22 +71,24 @@ export function InvoicesPageContent({
     onEditSuccess: () => setEditingInvoice(null),
   });
 
-  const handleAdd = (newData: Invoice) => {
+  const handleAdd = (newData: InvoiceFormValues) => {
+    const invoiceToAdd = { ...newData, status: newData.status || "draft", id: crypto.randomUUID() } as Invoice;
     startTransition(() => {
       setOptimisticInvoices({
         type: "add",
-        invoice: { ...newData, id: crypto.randomUUID() },
+        invoice: invoiceToAdd,
       });
     });
-    addMutation.mutate(newData);
+    addMutation.mutate(invoiceToAdd);
   };
 
-  const handleEdit = (newData: Invoice) => {
+  const handleEdit = (newData: InvoiceFormValues) => {
     if (!editingInvoice?.id) return;
+    const invoiceToEdit = { ...newData, status: newData.status || "draft", id: editingInvoice.id } as Invoice;
     startTransition(() => {
       setOptimisticInvoices({
         type: "edit",
-        invoice: { ...newData, id: editingInvoice.id },
+        invoice: invoiceToEdit,
       });
     });
     editMutation.mutate({ id: editingInvoice.id, updates: newData });

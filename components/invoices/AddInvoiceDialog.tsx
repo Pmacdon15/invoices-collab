@@ -5,7 +5,7 @@ import { InvoiceForm } from "./InvoiceForm";
 interface AddInvoiceDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (values: InvoiceFormValues) => Promise<void> | void;
+  onSubmit: (values: InvoiceFormValues) => void;
   clients: Client[];
   products: Product[];
 }
