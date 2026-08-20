@@ -89,7 +89,7 @@ export function InvoicesPageContent({
 
   const handleUpdateStatus = (
     invoice: Invoice,
-    newStatus: Invoice["status"]
+    newStatus: Invoice["status"],
   ) => {
     if (!invoice.id) return;
     const updatedInvoice = { ...invoice, status: newStatus };
