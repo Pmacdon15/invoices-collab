@@ -8,7 +8,7 @@ import type { DataFetchResponse } from "./clients"; // reusing the type
 export async function getInvoices(
   page: number = 1,
 ): Promise<DataFetchResponse<{ invoices: Invoice[]; totalPages: number }>> {
-  const parsed = z.number().int().positive().safeParse(page);
+  const parsed = z.number().int().safeParse(page);
   if (!parsed.success) {
     return {
       data: null,

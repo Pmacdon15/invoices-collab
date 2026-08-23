@@ -11,7 +11,7 @@ export async function getProducts(
 ): Promise<DataFetchResponse<{ products: Product[]; totalPages: number }>> {
   const parsed = z
     .object({
-      page: z.number().int().positive(),
+      page: z.number().int(),
       limit: z.number().int().positive(),
     })
     .safeParse({ page, limit });

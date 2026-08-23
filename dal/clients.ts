@@ -12,8 +12,8 @@ export async function getClients(
 ): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
   const parsed = z
     .object({
-      page: z.number().int().positive(),
-      limit: z.number().int().positive(),
+      page: z.number().int(),
+      limit: z.number().int(),
     })
     .safeParse({ page, limit });
   if (!parsed.success) {
