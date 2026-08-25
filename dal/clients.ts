@@ -7,10 +7,11 @@ export type DataFetchResponse<T> = { data: T | null; reason: string | null };
 
 export async function getClients(
   page: number = 1,
+  limit = 10,
 ): Promise<DataFetchResponse<{ clients: Client[]; totalPages: number }>> {
   const { userId, orgId } = await auth.protect();
   const tenantId = orgId ?? userId;
-  return dbGetClients(page, tenantId)
+  return dbGetClients(tenantId, page, limit)
     .then((data) => {
       if (data) return { data, reason: null };
       return { data: null, reason: "Failed to fetch clients" };
