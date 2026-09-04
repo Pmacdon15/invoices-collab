@@ -1,10 +1,11 @@
 import { Suspense } from "react";
+
+import { InvoicesPageContent } from "@/components/invoices/InvoicesPageContent";
 import Spinner from "@/components/shared/spinner";
+import { getClients } from "@/dal/clients";
+import { getInvoices } from "@/dal/invoices";
+import { getProducts } from "@/dal/products";
 import { parseParams } from "@/lib/utils";
-import { InvoicesPageContent } from "../../components/invoices/InvoicesPageContent";
-import { getClients } from "../../dal/clients";
-import { getInvoices } from "../../dal/invoices";
-import { getProducts } from "../../dal/products";
 
 export default async function InvoicesPage(props: PageProps<"/invoices">) {
   return (
