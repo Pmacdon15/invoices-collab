@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Printer, Trash2 } from "lucide-react";
 import type { InvoicesTableProps } from "@/types/types";
 import { Button } from "../ui/button";
 import {
@@ -16,6 +16,7 @@ export function InvoicesTable({
   clients,
   onEditInvoice,
   onUpdateStatus,
+  onPrintInvoice,
 }: InvoicesTableProps) {
   return (
     <div className="rounded-md border bg-white">
@@ -39,7 +40,15 @@ export function InvoicesTable({
                       {client ? client.name : "Unknown Client"}
                     </p>
                   </div>
-                  <div className="flex gap-1">
+                  <div className="flex items-center gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onPrintInvoice?.(invoice)}
+                    >
+                      <Printer className="h-3.5 w-3.5 mr-1" />
+                      Print
+                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"
@@ -156,11 +165,19 @@ export function InvoicesTable({
                       : "N/A"}
                   </td>
                   <td className="p-4 text-right">
-                    <div className="flex justify-end gap-2">
+                    <div className="flex items-center justify-end gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => onPrintInvoice?.(invoice)}
+                      >
+                        <Printer />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => onEditInvoice(invoice)}
+                        title="Edit Invoice"
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -168,6 +185,7 @@ export function InvoicesTable({
                         variant="ghost"
                         size="icon"
                         className="text-red-500"
+                        title="Delete Invoice"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
