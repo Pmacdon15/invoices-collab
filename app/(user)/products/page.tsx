@@ -8,7 +8,7 @@ import { parseParams } from "@/lib/utils";
 export default function ProductsPage(props: PageProps<"/products">) {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-5xl p-8">
+      <div className="mx-auto max-w-5xl p-4 sm:p-6 md:p-8">
         <Suspense fallback={<Spinner />}>
           <ProductsPageContent
             productsPromise={props.searchParams.then((p) =>

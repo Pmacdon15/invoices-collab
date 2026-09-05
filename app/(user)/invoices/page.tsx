@@ -10,7 +10,7 @@ import { parseParams } from "@/lib/utils";
 export default async function InvoicesPage(props: PageProps<"/invoices">) {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto max-w-5xl p-8">
+      <div className="mx-auto max-w-5xl p-4 sm:p-6 md:p-8">
         <Suspense fallback={<Spinner />}>
           <InvoicesPageContent
             invoicesPromise={props.searchParams.then((p) =>

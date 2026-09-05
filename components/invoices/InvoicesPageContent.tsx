@@ -121,8 +121,8 @@ export function InvoicesPageContent({
 
   return (
     <>
-      <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Invoices</h1>
+      <div className="mb-6 sm:mb-8 flex items-center justify-between gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Invoices</h1>
         <Button onClick={() => setIsAddOpen(true)}>Create Invoice</Button>
       </div>
       {reason ? (
