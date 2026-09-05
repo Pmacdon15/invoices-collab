@@ -1,6 +1,6 @@
 "use client";
 
-import { useClerk } from "@clerk/nextjs";
+import { OrganizationSwitcher, useClerk } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import type * as React from "react";
@@ -45,17 +45,32 @@ export function UserSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const isMobile = useIsMobile();
-  const { openUserProfile, signOut } = useClerk();
+  const { openUserProfile, openOrganizationProfile, signOut } = useClerk();
 
   if (!isMobile) return null;
 
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="gap-3 p-4">
         <Link href={"/"} className="flex items-center gap-2">
-          <Image src="/logo.webp" alt="logo" width={48} height={48} />
+          <Image src="/logo.webp" alt="logo" width={40} height={40} />
           <span className="font-bold text-xl">VivaPro</span>
         </Link>
+        <div className="pt-2">
+          <OrganizationSwitcher
+            hidePersonal={false}
+            afterCreateOrganizationUrl="/invoices"
+            afterSelectOrganizationUrl="/invoices"
+            afterLeaveOrganizationUrl="/invoices"
+            appearance={{
+              elements: {
+                rootBox: "w-full flex",
+                organizationSwitcherTrigger:
+                  "w-full justify-between px-3 py-2 rounded-md border border-input bg-background hover:bg-accent text-sm font-medium transition-colors shadow-xs",
+              },
+            }}
+          />
+        </div>
       </SidebarHeader>
       <SidebarContent>
         {data.navMain.map((item) => (
@@ -77,15 +92,23 @@ export function UserSidebar({
           </SidebarGroup>
         ))}
         <SidebarGroup>
-          <SidebarGroupLabel>Account</SidebarGroupLabel>
+          <SidebarGroupLabel>Account & Organization</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton
                   size={"lg"}
+                  onClick={() => openOrganizationProfile()}
+                >
+                  Organization Settings
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  size={"lg"}
                   onClick={() => openUserProfile()}
                 >
-                  Settings
+                  User Settings
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>

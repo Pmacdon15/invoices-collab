@@ -1,4 +1,9 @@
-import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  OrganizationSwitcher,
+  UserButton,
+} from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { NavLinkWrapper } from "@/components/shared/nav-link";
@@ -10,35 +15,54 @@ export default function UserNavbar() {
         <Image src="/logo.webp" alt="logo" width={32} height={32} />
         <span className="font-bold">VivaPro</span>
       </Link>
-      <ul className="hidden items-center gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
-        <li>
-          <NavLinkWrapper href="/clients" text="Clients" />
-        </li>
-        <li>
-          <NavLinkWrapper href="/products" text="Products" />
-        </li>
-        <li>
-          <NavLinkWrapper href="/invoices" text="Invoices" />
-        </li>
-        <li className="hidden md:block min-w-9 min-h-9">
+      <div className="flex items-center gap-4 md:gap-8">
+        <ul className="hidden items-center gap-8 *:duration-200 *:hover:-translate-y-0.5 md:flex">
+          <li>
+            <NavLinkWrapper href="/clients" text="Clients" />
+          </li>
+          <li>
+            <NavLinkWrapper href="/products" text="Products" />
+          </li>
+          <li>
+            <NavLinkWrapper href="/invoices" text="Invoices" />
+          </li>
+        </ul>
+        <div className="flex items-center gap-3">
           <ClerkLoading>
-            <div className="h-8 w-8 animate-pulse rounded-full bg-primary" />
+            <div className="h-8 w-32 animate-pulse rounded-md bg-muted" />
           </ClerkLoading>
           <ClerkLoaded>
-            <UserButton
-              showName={false}
+            <OrganizationSwitcher
+              hidePersonal={false}
               appearance={{
                 elements: {
-                  userButtonAvatarBox: {
-                    width: "2.25rem",
-                    height: "2.25rem",
-                  },
+                  rootBox: "flex items-center",
+                  organizationSwitcherTrigger:
+                    "px-3 py-1.5 rounded-md border border-input bg-background hover:bg-accent text-sm font-medium transition-colors shadow-xs",
                 },
               }}
             />
           </ClerkLoaded>
-        </li>
-      </ul>
+          <div className="min-w-9 min-h-9 flex items-center">
+            <ClerkLoading>
+              <div className="h-8 w-8 animate-pulse rounded-full bg-primary" />
+            </ClerkLoading>
+            <ClerkLoaded>
+              <UserButton
+                showName={false}
+                appearance={{
+                  elements: {
+                    userButtonAvatarBox: {
+                      width: "2.25rem",
+                      height: "2.25rem",
+                    },
+                  },
+                }}
+              />
+            </ClerkLoaded>
+          </div>
+        </div>
+      </div>
     </nav>
   );
 }
