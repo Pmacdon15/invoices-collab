@@ -4,7 +4,6 @@ import Spinner from "@/components/shared/spinner";
 import { getProducts } from "@/dal/products";
 import { parseParams } from "@/lib/utils";
 
-
 export default function ProductsPage(props: PageProps<"/products">) {
   return (
     <div className="min-h-screen bg-background text-foreground">

@@ -46,7 +46,7 @@ export async function dbGetClients(
 
 export async function dbAddClient(
   client: Client,
-  orgId: string | undefined,
+  orgId: string,
 ): Promise<Client> {
   const rows = await sql`
     INSERT INTO clients (org_id, name, email, phone, address)
@@ -59,7 +59,7 @@ export async function dbAddClient(
 export async function dbEditClient(
   id: string,
   updates: Partial<Client>,
-  orgId: string | undefined,
+  orgId: string,
 ): Promise<Client> {
   // Using COALESCE to only update fields that are provided
   const rows = await sql`
@@ -81,8 +81,7 @@ export async function dbEditClient(
 
 export async function dbGetProducts(
   page: number = 1,
-  // userId: string,
-  orgId: string | undefined,
+  orgId: string,
   limit = 10,
 ): Promise<{ products: Product[]; totalPages: number }> {
   "use cache";
@@ -121,7 +120,7 @@ export async function dbGetProducts(
 
 export async function dbAddProduct(
   product: Product,
-  orgId: string | undefined,
+  orgId: string,
 ): Promise<Product> {
   const rows = await sql`
     INSERT INTO products (org_id, name, description, price, sku)
@@ -134,7 +133,7 @@ export async function dbAddProduct(
 export async function dbEditProduct(
   id: string,
   updates: Partial<Product>,
-  orgId: string | undefined,
+  orgId: string,
 ): Promise<Product> {
   const rows = await sql`
     UPDATE products
@@ -155,7 +154,7 @@ export async function dbEditProduct(
 
 export async function dbGetInvoices(
   page: number = 1,
-  orgId: string | undefined,
+  orgId: string,
   limit = 10,
 ): Promise<{ invoices: Invoice[]; totalPages: number }> {
   "use cache";
@@ -198,7 +197,7 @@ export async function dbGetInvoices(
 
 export async function dbAddInvoice(
   invoice: Invoice,
-  orgId: string | undefined,
+  orgId: string,
 ): Promise<Invoice> {
   const itemsJson = JSON.stringify(invoice.items || []);
   const rows = await sql`
@@ -212,7 +211,7 @@ export async function dbAddInvoice(
 export async function dbEditInvoice(
   id: string,
   updates: Partial<Invoice>,
-  orgId: string | undefined,
+  orgId: string,
 ): Promise<Invoice> {
   const itemsJson = updates.items ? JSON.stringify(updates.items) : null;
 
