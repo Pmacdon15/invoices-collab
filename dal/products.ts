@@ -8,9 +8,11 @@ export async function getProducts(
   page: number = 1,
   limit = 10,
 ): Promise<DataFetchResponse<{ products: Product[]; totalPages: number }>> {
-  const { userId, orgId } = await auth.protect();
-  const tenantId = orgId ?? userId;
-  return dbGetProducts(page, tenantId, limit)
+  const { orgId } = await auth.protect();
+  if (!orgId) {
+    return { data: null, reason: "No active organization" };
+  }
+  return dbGetProducts(page, orgId, limit)
     .then((data) => {
       if (data) return { data, reason: null };
       return { data: null, reason: "Failed to fetch products" };
@@ -24,9 +26,11 @@ export async function getProducts(
 export async function addProduct(
   product: Product,
 ): Promise<Result<Product, string>> {
-  const { userId, orgId } = await auth.protect();
-  const tenantId = orgId ?? userId;
-  return dbAddProduct(product, tenantId)
+  const { orgId } = await auth.protect();
+  if (!orgId) {
+    return err("No active organization");
+  }
+  return dbAddProduct(product, orgId)
     .then((data) => {
       return ok(data);
     })
@@ -40,9 +44,11 @@ export async function editProduct(
   id: string,
   updates: Partial<Product>,
 ): Promise<Result<Product, string>> {
-  const { userId, orgId } = await auth.protect();
-  const tenantId = orgId ?? userId;
-  return dbEditProduct(id, updates, tenantId)
+  const { orgId } = await auth.protect();
+  if (!orgId) {
+    return err("No active organization");
+  }
+  return dbEditProduct(id, updates, orgId)
     .then((data) => {
       return ok(data);
     })
