@@ -5,4 +5,5 @@ export interface InvoicesTableProps {
   clients: Client[];
   onEditInvoice: (invoice: Invoice) => void;
   onUpdateStatus: (invoice: Invoice, newStatus: Invoice["status"]) => void;
+  onPrintInvoice?: (invoice: Invoice) => void;
 }

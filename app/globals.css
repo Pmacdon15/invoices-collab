@@ -205,3 +205,55 @@
     scroll-behavior: smooth;
   }
 }
+
+@media print {
+  @page {
+    size: auto;
+    margin: 12mm 15mm;
+  }
+
+  html,
+  body {
+    background: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* When printing an invoice dialog: hide all other siblings in body */
+  body:has(#invoice-print-container) > *:not(#invoice-print-container) {
+    display: none;
+  }
+
+  /* Ensure the print container displays as clean document flow */
+  #invoice-print-container {
+    display: block;
+    position: static;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  #invoice-print-container tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Hide navigation, sidebar, dialog overlays, header, and buttons */
+  header,
+  nav,
+  aside,
+  [data-slot="dialog-portal"],
+  [data-slot="dialog-overlay"],
+  [data-slot="dialog-close"],
+  [data-slot="dialog-header"],
+  [data-sonner-toaster],
+  .no-print {
+    display: none;
+  }
+}

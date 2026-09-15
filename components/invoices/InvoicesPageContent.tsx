@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import { AddInvoiceDialog } from "./AddInvoiceDialog";
 import { EditInvoiceDialog } from "./EditInvoiceDialog";
 import { InvoicesTable } from "./InvoicesTable";
+import { PrintInvoiceDialog } from "./PrintInvoiceDialog";
 
 export function InvoicesPageContent({
   invoicesPromise,
@@ -65,6 +66,7 @@ export function InvoicesPageContent({
 
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingInvoice, setEditingInvoice] = useState<Invoice | null>(null);
+  const [printingInvoice, setPrintingInvoice] = useState<Invoice | null>(null);
 
   const { addMutation, editMutation } = useInvoiceMutations({
     onAddSuccess: () => setIsAddOpen(false),
@@ -72,7 +74,11 @@ export function InvoicesPageContent({
   });
 
   const handleAdd = (newData: InvoiceFormValues) => {
-    const invoiceToAdd = { ...newData, status: newData.status || "draft", id: crypto.randomUUID() } as Invoice;
+    const invoiceToAdd = {
+      ...newData,
+      status: newData.status || "draft",
+      id: crypto.randomUUID(),
+    } as Invoice;
     startTransition(() => {
       setOptimisticInvoices({
         type: "add",
@@ -84,7 +90,11 @@ export function InvoicesPageContent({
 
   const handleEdit = (newData: InvoiceFormValues) => {
     if (!editingInvoice?.id) return;
-    const invoiceToEdit = { ...newData, status: newData.status || "draft", id: editingInvoice.id } as Invoice;
+    const invoiceToEdit = {
+      ...newData,
+      status: newData.status || "draft",
+      id: editingInvoice.id,
+    } as Invoice;
     startTransition(() => {
       setOptimisticInvoices({
         type: "edit",
@@ -138,6 +148,7 @@ export function InvoicesPageContent({
             clients={clients}
             onEditInvoice={setEditingInvoice}
             onUpdateStatus={handleUpdateStatus}
+            onPrintInvoice={setPrintingInvoice}
           />
           <Pagination totalPages={totalPages} />
         </>
@@ -155,6 +166,13 @@ export function InvoicesPageContent({
         invoice={editingInvoice}
         onClose={() => setEditingInvoice(null)}
         onSubmit={handleEdit}
+        clients={clients}
+        products={products}
+      />
+
+      <PrintInvoiceDialog
+        invoice={printingInvoice}
+        onClose={() => setPrintingInvoice(null)}
         clients={clients}
         products={products}
       />
