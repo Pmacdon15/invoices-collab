@@ -72,7 +72,11 @@ export function InvoicesPageContent({
   });
 
   const handleAdd = (newData: InvoiceFormValues) => {
-    const invoiceToAdd = { ...newData, status: newData.status || "draft", id: crypto.randomUUID() } as Invoice;
+    const invoiceToAdd = {
+      ...newData,
+      status: newData.status || "draft",
+      id: crypto.randomUUID(),
+    } as Invoice;
     startTransition(() => {
       setOptimisticInvoices({
         type: "add",
@@ -84,7 +88,11 @@ export function InvoicesPageContent({
 
   const handleEdit = (newData: InvoiceFormValues) => {
     if (!editingInvoice?.id) return;
-    const invoiceToEdit = { ...newData, status: newData.status || "draft", id: editingInvoice.id } as Invoice;
+    const invoiceToEdit = {
+      ...newData,
+      status: newData.status || "draft",
+      id: editingInvoice.id,
+    } as Invoice;
     startTransition(() => {
       setOptimisticInvoices({
         type: "edit",

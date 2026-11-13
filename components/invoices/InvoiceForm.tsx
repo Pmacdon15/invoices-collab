@@ -5,7 +5,6 @@ import { Plus, Trash2 } from "lucide-react";
 import { startTransition, useOptimistic, useState } from "react";
 import {
   type Client,
-  type Invoice,
   type InvoiceFormValues,
   InvoiceSchema,
   type Product,
