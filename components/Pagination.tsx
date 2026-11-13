@@ -17,7 +17,7 @@ export function Pagination({ totalPages }: { totalPages?: number }) {
   };
 
   return (
-    <div className="flex items-center gap-2 mt-4">
+    <div className="flex items-center justify-between sm:justify-start gap-2 mt-4">
       <Button
         variant="outline"
         onClick={() => router.push(createPageURL(currentPage - 1))}
